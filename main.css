@@ -1,0 +1,119 @@
+body{
+    font-size: 25px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.MasterGrid {
+    display: grid;
+    grid-template-rows: 1fr 1.5fr 10fr;
+    grid-template-columns: 1fr 10fr; 
+    gap: 3px;
+}
+
+.MasterGrid > div { /* pointing to the direct children of the MasterGrid class */
+    border-radius: 5px;
+  }
+
+/* grid-area: row start / col start / row end / col end  (the ending values are exclusive) */
+
+.TitleBox {
+    background-color: #EFE9D5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: 1 / 1 / 2 / 3;
+}
+
+#MainContentBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #27445D;
+    grid-area: 3 / 2 / 4 / 3;
+}
+
+#MainContentTitleBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#MainContentTitle {
+    color: #EFE9D5;
+    font-size: 1.2em;
+}
+
+.shortcutColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Shortcuts {
+    background-color: #71BBB2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    grid-area: 2 / 1 / 4 / 2;
+}
+
+.shortcutContainer {
+    width: 150px; /* Fixed width for the div */
+    height: 160px; /* Fixed height for the div */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #000000;
+    margin: 10px 10px;
+    border-radius: 40px;
+    /*box-shadow: [horizontal-offset] [vertical-offset] [blur-radius] [spread-radius (optional)] [color];*/
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.shortcutContainer:hover {
+    background-color: #84eee2;
+}
+
+/*margin shorthand: top right bottom left*/
+/*margin shorthand: 10px 20px   top/bottom left/right*/
+/*margin shorthand: 10px   10 all sides*/
+.shortcutTitle {
+    margin: 5px 5px;
+}
+
+.imageContainer {
+    width: 85px; /* Fixed width for the div */
+    height: 100px; /* Fixed height for the div */
+    display: flex; /* Centers the image inside */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.imageContainer > img {
+    width: 100%; /* Makes the image fill the div */
+    height: auto; /* Keeps the aspect ratio */
+}
+
+.HeaderTiles {
+    display: grid;
+    background-color: #71BBB2;
+    grid-area: 2 / 2 / 3 / 3
+}
+
+.HeaderTiles > #Strategies {
+    display: flex;
+    justify-content: center;
+}
+
+.ContentAdd {
+    justify-self: end;
+}
+
+input, button {
+    margin: 5px;
+    padding: 5px;
+}
+
+
