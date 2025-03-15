@@ -1,7 +1,7 @@
 // Get references to buttons, dynamic content containers, and the graph container
 
 //pointer to main content box
-const mainContentBox = document.getElementById("MainContentBox");
+const mainContentInformationBox = document.getElementById("mainContentInformationBox");
 const mainContentTitle = document.getElementById("MainContentTitle");
 
 //pointers to shourtcut buttons
@@ -14,9 +14,9 @@ const investShortcutBtn = document.getElementById("investShortcut");
 const retirementInputs = document.getElementById("retirementInputs");
 const retirementTable = document.getElementById("retirementTable");
 
-// Function to clear and update MainContentBox content
+// Function to clear and update mainContentInformationBox content
 function insertIntoMainContent(contentHTML, title) {
-    mainContentBox.innerHTML = `
+    mainContentInformationBox.innerHTML = `
         <div id="MainContentTitleBox"> 
             <p id="MainContentTitle">${title}</p> 
         </div>
@@ -30,6 +30,7 @@ function generateRetirementTable() {
     //.value grabs the value from that element and parsefloat cast it to a float
     const startAmount = parseInt(document.getElementById("startAmount").value);
     const contribution = parseInt(document.getElementById("contribution").value);
+    const yearlyIncrease = parseInt(document.getElementById("yearlyIncrease").value);
 
     //ensuring we have numbers entered
     if (isNaN(startAmount) || isNaN(contribution)) {
@@ -58,19 +59,8 @@ function generateRetirementTable() {
 
     //assuming a 7% real annual return rate of the market
     const rate = .07;
-    const contributionIncrease = 1.08; //increase of 1% each year
 
     for (let year = 1; year <= 30; year++) {
-
-        //checking our potential contribution for the year
-        const potenialContribution = currentContribution * contributionIncrease;
-
-        //if we are higher or equal to the contribution limit we contribute the max otherwise increase by 1%
-        if (potenialContribution >= contributionLimit) {
-            currentContribution = contributionLimit;
-        } else { 
-            currentContribution = potenialContribution;
-        }
 
         balance += currentContribution;
         const interest = balance * rate;
@@ -85,6 +75,16 @@ function generateRetirementTable() {
                 <td>$${Math.round(endBalance)}</td>
             </tr>`;
 
+        //checking our potential contribution for the year
+        const potenialContribution = currentContribution + yearlyIncrease;
+
+        //if we are higher or equal to the contribution limit we contribute the max otherwise increase by 1%
+        if (potenialContribution >= contributionLimit) {
+            currentContribution = contributionLimit;
+        } else { 
+            currentContribution = potenialContribution;
+        }
+
         balance = endBalance;
         contributionLimit += 500;
     }
@@ -97,14 +97,13 @@ function generateRetirementTable() {
     };
 
 
-
-
-// Event listener for Invest button (renders the retirement inputs & table)
+// Event listener for Invest shortcut button (renders the retirement inputs & table container)
 investShortcutBtn.addEventListener("click", function () {
     insertIntoMainContent(`
         <div id="retirementInputs">
             <label>Balance ($): <input type="number" id="startAmount" value="55000" class="retirementInput"></label><br>
-            <label>Yearly Contribution: <input type="number" id="contribution" value="15600" class="retirementInput"></label><br>
+            <label>Yearly contribution ($): <input type="number" id="contribution" value="15600" class="retirementInput"></label><br>
+            <label>Yearly increase amount ($): <input type="number" id="yearlyIncrease" value="600" class="retirementInput"></label><br>
             <button id="generateRetirementBtn" class="retirementInput">Generate Table</button>
         </div>
         <div id="retirementTable"></div>
