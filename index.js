@@ -3,6 +3,8 @@
 //pointer to main content box
 const mainContentInformationBox = document.getElementById("mainContentInformationBox");
 const mainContentTitle = document.getElementById("MainContentTitle");
+const mainContentTableBox = document.getElementById("mainContentTableBox");
+
 
 //pointers to shourtcut buttons
 const budgetShortcutBtn = document.getElementById("budgetShortcut");
@@ -12,7 +14,6 @@ const investShortcutBtn = document.getElementById("investShortcut");
 
 //pointers regarding the investment page
 const retirementInputs = document.getElementById("retirementInputs");
-const retirementTable = document.getElementById("retirementTable");
 
 // Function to clear and update mainContentInformationBox content
 function insertIntoMainContent(contentHTML, title) {
@@ -93,22 +94,25 @@ function generateRetirementTable() {
     html += `</table>`;
 
     //inserting the table into our retirementTable div
-    document.getElementById("retirementTable").innerHTML = html;
+    mainContentTableBox.innerHTML = html;
     };
 
 
 // Event listener for Invest shortcut button (renders the retirement inputs & table container)
 investShortcutBtn.addEventListener("click", function () {
     insertIntoMainContent(`
-        <div id="retirementInputs">
-            <label>Balance ($): <input type="number" id="startAmount" value="55000" class="retirementInput"></label><br>
-            <label>Yearly contribution ($): <input type="number" id="contribution" value="15600" class="retirementInput"></label><br>
-            <label>Yearly increase amount ($): <input type="number" id="yearlyIncrease" value="600" class="retirementInput"></label><br>
-            <button id="generateRetirementBtn" class="retirementInput">Generate Table</button>
+        <div id="retirementInputs" class = "investmentInputsBox">
+            <label>Name: <input class="investmentInput"></label><br>
+            <label>Balance ($): <input type="number" id="startAmount" value="55000" class="investmentInput"></label><br>
+            <label>Yearly contribution ($): <input type="number" id="contribution" value="15600" class="investmentInput"></label><br>
+            <label>Yearly increase ($): <input type="number" id="yearlyIncrease" value="600" class="investmentInput"></label><br>
         </div>
         <div id="retirementTable"></div>
     `, 'Investments');
 
+    document.getElementById("MainContentTitleBox").innerHTML += 
+    '<button id="generateRetirementBtn">Generate Table</button>';
+    
     // Reattach event listener for the Generate Table button
     document.getElementById("generateRetirementBtn").addEventListener("click", generateRetirementTable);
 });

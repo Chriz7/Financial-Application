@@ -5,14 +5,11 @@ body{
 
 .MasterGrid {
     display: grid;
-    grid-template-rows: 1fr 1.5fr 10fr;
-    grid-template-columns: 1fr 10fr 5fr; 
+    /* fixed heights for the first two rows then automatically contain the content for the last row*/
+    grid-template-rows: 80px 160px minmax(800px, auto);
+    grid-template-columns: 1fr 9fr 6fr; 
     gap: 3px;
 }
-
-.MasterGrid > div { /* pointing to the direct children of the MasterGrid class */
-    border-radius: 5px;
-  }
 
 /* grid-area: row start / col start / row end / col end  (the ending values are exclusive) */
 
@@ -27,9 +24,22 @@ body{
 #mainContentInformationBox {
     display: flex;
     flex-direction: column;
-    align-items: center;
     background-color: #27445D;
     grid-area: 3 / 2 / 4 / 3;
+}
+
+.investmentInputsBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #5983a7;
+    border-radius: 20px;
+    margin: 20px;
+    padding: 5px;
+}
+
+.investmentInputsBox > label{
+    font-size: .8em;
 }
 
 #mainContentTableBox {
@@ -37,6 +47,7 @@ body{
     flex-direction: column;
     align-items: center;
     background-color: #5983a7;
+    padding: 10px;
     grid-area: 3 / 3 / 4 / 4;
 }
 
@@ -44,6 +55,26 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background-color: #5983a7;
+}
+
+th, td {
+    border: 1px solid #000000;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #27445D;
+    color: white;
+    font-weight: bold;
 }
 
 #MainContentTitle {
