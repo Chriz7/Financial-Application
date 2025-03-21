@@ -30,16 +30,32 @@ body{
 
 .investmentInputsBox {
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
     background-color: #5983a7;
     border-radius: 20px;
     margin: 20px;
     padding: 5px;
+    gap: 10px;
 }
 
-.investmentInputsBox > label{
+.investmentInputsBox > label {
     font-size: .8em;
+    background-color: #7d9fbd;
+    display: flex; /* Make each label a flex container */
+    flex-direction: column;
+    align-items: center; /* Center text and input vertically within label */
+    min-width: 200px; /* Ensure all labels have the same minimum width */
+    text-align: center; /* Fallback for text alignment */
+    border: 1px solid #000000;
+    border-radius: 10px;
+}
+
+.investmentInput {
+    margin-left: 5px;
+    padding: 5px;
+    width: 100px;
 }
 
 #mainContentTableBox {

@@ -12,26 +12,19 @@ const debtShortcutBtn = document.getElementById("debtShortcut");
 const educationShortcutBtn = document.getElementById("educationShortcut");
 const investShortcutBtn = document.getElementById("investShortcut");
 
-//pointers regarding the investment page
-const retirementInputs = document.getElementById("retirementInputs");
+//variables to use for our investment accounts page
+let numberOfInvestmentAccounts = 1;
 
 // Function to clear and update mainContentInformationBox content
-function insertIntoMainContent(contentHTML, title) {
-    mainContentInformationBox.innerHTML = `
-        <div id="MainContentTitleBox"> 
+function mainContentInitiation(title) {
+    mainContentInformationBox.innerHTML = 
+        `<div id="MainContentTitleBox"> 
             <p id="MainContentTitle">${title}</p> 
-        </div>
-        ${contentHTML}
-    `;
+        </div>`;
 }
 
-// Function to create a retirement table
+/* Function to create a retirement table
 function generateRetirementTable() {
-
-    //.value grabs the value from that element and parsefloat cast it to a float
-    const startAmount = parseInt(document.getElementById("startAmount").value);
-    const contribution = parseInt(document.getElementById("contribution").value);
-    const yearlyIncrease = parseInt(document.getElementById("yearlyIncrease").value);
 
     //ensuring we have numbers entered
     if (isNaN(startAmount) || isNaN(contribution)) {
@@ -95,45 +88,67 @@ function generateRetirementTable() {
 
     //inserting the table into our retirementTable div
     mainContentTableBox.innerHTML = html;
+
     };
+*/
 
+//adds an investment account to the mainContentBox. This is so the user can manage multiple investment accounts
+function addInvestmentAccount() {
+    mainContentInformationBox.innerHTML +=
+        `<div class = "investmentInputsBox" id = investmentAccount${numberOfInvestmentAccounts}>
+            <button class = "removeInvestmentAccount">-</button>
+            <label>Name <input class="investmentInput" value="Account ${numberOfInvestmentAccounts}"></label>
+            <label>Balance ($) <input type="number" value="0" class="investmentInput"></label>
+            <label>Yearly contribution ($) <input type="number" value="0" class="investmentInput"></label>
+            <label>Yearly increase ($) <input type="number" value="0" class="investmentInput"></label>
+            <label>Yearly return rate (%) <input type="float" value="0" class="investmentInput"></label>
+        </div>`;
+    numberOfInvestmentAccounts ++;
+}
 
-// Event listener for Invest shortcut button (renders the retirement inputs & table container)
+// Event listener for Invest shortcut button (renders the investment content)
 investShortcutBtn.addEventListener("click", function () {
-    insertIntoMainContent(`
-        <div id="retirementInputs" class = "investmentInputsBox">
-            <label>Name: <input class="investmentInput"></label><br>
-            <label>Balance ($): <input type="number" id="startAmount" value="55000" class="investmentInput"></label><br>
-            <label>Yearly contribution ($): <input type="number" id="contribution" value="15600" class="investmentInput"></label><br>
-            <label>Yearly increase ($): <input type="number" id="yearlyIncrease" value="600" class="investmentInput"></label><br>
-        </div>
-        <div id="retirementTable"></div>
-    `, 'Investments');
+    mainContentInitiation('Investments');
 
     document.getElementById("MainContentTitleBox").innerHTML += 
-    '<button id="generateRetirementBtn">Generate Table</button>';
+    '<button id="addInvestmentAccount">Add Account</button>';
     
-    // Reattach event listener for the Generate Table button
-    document.getElementById("generateRetirementBtn").addEventListener("click", generateRetirementTable);
+});
+
+// Attach event listener for the add account button. this added it to the parent container so we dont have to worry about reattaching it when we clear the contents
+mainContentInformationBox.addEventListener("click", function (event) {
+    
+    //triggers if the button we clicked has the class removeButton
+    if (event.target.classList.contains("removeInvestmentAccount")) {
+        // Find the parent div of the button (the investment account div)
+        const investmentAccountDiv = event.target.closest('.investmentInputsBox');
+        
+        // Remove the parent div from the DOM
+        investmentAccountDiv.remove();
+    }
+    
+    if (event.target.id === "addInvestmentAccount") {
+        addInvestmentAccount();
+    }
 });
 
 // Event listener for Budget button (renders budget content)
 budgetShortcutBtn.addEventListener("click", function () {
-    insertIntoMainContent(`
+    mainContentInitiation(`
         <p>Budgeting Tools Coming Soon...</p>
     `, 'Budgeting');
 });
 
 // Event listener for Pay Debt button (renders debt content)
 debtShortcutBtn.addEventListener("click", function () {
-    insertIntoMainContent(`
+    mainContentInitiation(`
         <p>Debt Management Strategies Coming Soon...</p>
     `, 'Tackling Debt');
 });
 
 // Event listener for Learn button (renders education content)
 educationShortcutBtn.addEventListener("click", function () {
-    insertIntoMainContent(`
+    mainContentInitiation(`
         <p>Financial Education Resources Coming Soon...</p>
     `, 'Financial Education');
 });
