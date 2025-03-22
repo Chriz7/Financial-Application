@@ -1,0 +1,19 @@
+{
+  "name": "financial-application",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite", 
+    "build": "vite build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "vite": "^6.2.2"
+  },
+  "dependencies": {
+    "ag-grid-community": "^33.1.1"
+  }
+}

@@ -1,3 +1,5 @@
+
+import { createGrid, themeBalham } from './imports.js';
 // Get references to buttons, dynamic content containers, and the graph container
 
 //pointer to main content box
@@ -77,30 +79,29 @@ function calculateInvesmentTable() {
     mainContentTableBox.innerHTML += 
         `<div id="myGrid" class="ag-theme-alpine"></div>`;
 
-    // Define column definitions
-    const columnDefs = [
-        { headerName: "Make", field: "make" },
-        { headerName: "Model", field: "model" },
-        { headerName: "Price", field: "price" }
-    ];
+    const myGridElement = document.querySelector("#myGrid");
     
-    // Define row data
-    const rowData = [
-        { make: "Toyota", model: "Corolla", price: 25000 },
-        { make: "Ford", model: "Mustang", price: 35000 },
-        { make: "Tesla", model: "Model 3", price: 45000 }
-    ];
-    
-    // Grid options
+
+    // Grid Options: Contains all of the Data Grid configurations
     const gridOptions = {
-        columnDefs: columnDefs,
-        rowData: rowData
+        // Row Data: The data to be displayed.
+        theme: themeBalham,
+        rowData: [
+            { make: "Tesla", model: "Model Y", price: 64950, electric: true },
+            { make: "Ford", model: "F-Series", price: 33850, electric: false },
+            { make: "Toyota", model: "Corolla", price: 29600, electric: false },
+        ],
+        // Column Definitions: Defines the columns to be displayed.
+        columnDefs: [
+            { field: "make" },
+            { field: "model" },
+            { field: "price" },
+            { field: "electric" }
+        ]
     };
 
-    //inputting the grid
-    console.log("agGrid:", agGrid); // Add this line
-    const gridDiv = document.querySelector("#myGrid");
-    new agGrid.Grid(gridDiv, gridOptions);
+    agGrid.createGrid(myGridElement, gridOptions);
+    
 }
 
 
