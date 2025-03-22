@@ -12,8 +12,12 @@ const debtShortcutBtn = document.getElementById("debtShortcut");
 const educationShortcutBtn = document.getElementById("educationShortcut");
 const investShortcutBtn = document.getElementById("investShortcut");
 
-//variables to use for our investment accounts page
+//invesment variables
+const calculateInvestmentsBtn = document.getElementById("calculateInvestments");
 let numberOfInvestmentAccounts = 1;
+
+//dictionary to store investment account information
+const investmentAccounts = {};
 
 // Function to clear and update mainContentInformationBox content
 function mainContentInitiation(title) {
@@ -23,79 +27,11 @@ function mainContentInitiation(title) {
         </div>`;
 }
 
-/* Function to create a retirement table
-function generateRetirementTable() {
-
-    //ensuring we have numbers entered
-    if (isNaN(startAmount) || isNaN(contribution)) {
-    alert("Please enter valid numbers.");
-    }
-
-    //tr is a table row
-    //th is a table header
-    //td is a cell. think table data
-    //{variableName} will insert a variable.
-    let html = `
-    <table>
-        <tr>
-            <th>Year</th>
-            <th>Contribution</th>
-            <th>Starting Balance</th>
-            <th>Interest Earned</th>
-            <th>Ending Balance</th>
-        </tr>
-    `;
-
-    //creating variables to update each year
-    let balance = startAmount;
-    let currentContribution = contribution;
-    let contributionLimit = 23500; //as of 2025
-
-    //assuming a 7% real annual return rate of the market
-    const rate = .07;
-
-    for (let year = 1; year <= 30; year++) {
-
-        balance += currentContribution;
-        const interest = balance * rate;
-        const endBalance = balance + interest;
-
-        html += `
-            <tr>
-                <td>${year}</td>
-                <td>${Math.round(currentContribution)}</td>
-                <td>$${Math.round(balance)}</td>
-                <td>$${Math.round(interest)}</td>
-                <td>$${Math.round(endBalance)}</td>
-            </tr>`;
-
-        //checking our potential contribution for the year
-        const potenialContribution = currentContribution + yearlyIncrease;
-
-        //if we are higher or equal to the contribution limit we contribute the max otherwise increase by 1%
-        if (potenialContribution >= contributionLimit) {
-            currentContribution = contributionLimit;
-        } else { 
-            currentContribution = potenialContribution;
-        }
-
-        balance = endBalance;
-        contributionLimit += 500;
-    }
-
-    //closing the table tag. this will be the final piece of the HTML we will need for our table
-    html += `</table>`;
-
-    //inserting the table into our retirementTable div
-    mainContentTableBox.innerHTML = html;
-
-    };
-*/
-
 //adds an investment account to the mainContentBox. This is so the user can manage multiple investment accounts
 function addInvestmentAccount() {
-    mainContentInformationBox.innerHTML +=
-        `<div class = "investmentInputsBox" id = investmentAccount${numberOfInvestmentAccounts}>
+
+    mainContentInformationBox.innerHTML += 
+        `<div class = "investmentInputsBox" id = "account${numberOfInvestmentAccounts}">
             <button class = "removeInvestmentAccount">-</button>
             <label>Name <input class="investmentInput" value="Account ${numberOfInvestmentAccounts}"></label>
             <label>Balance ($) <input type="number" value="0" class="investmentInput"></label>
@@ -106,12 +42,77 @@ function addInvestmentAccount() {
     numberOfInvestmentAccounts ++;
 }
 
+// New function to collect and store all investment account data
+function updateInvestmentDictionary() {
+    
+    // Clear existing dictionary
+    for (let key in investmentAccounts) {
+        delete investmentAccounts[key];
+    }
+    
+    // Get all investment account divs
+    const accountDivs = document.querySelectorAll('.investmentInputsBox');
+    
+    // Loop through each investment account
+    accountDivs.forEach(div => {
+        const accountId = div.id;
+        const inputs = div.querySelectorAll('.investmentInput');
+        
+        // Store data in dictionary
+        investmentAccounts[accountId] = {
+            name: inputs[0].value,
+            balance: Number(inputs[1].value),
+            yearlyContribution: Number(inputs[2].value),
+            yearlyIncrease: Number(inputs[3].value),
+            returnRate: Number(inputs[4].value) / 100 // Convert percentage to decimal
+        };
+
+        console.log(investmentAccounts[accountId]);
+    }); 
+}
+
+//this function will gather the investment account data and create at table
+function calculateInvesmentTable() {
+
+    mainContentTableBox.innerHTML += 
+        `<div id="myGrid" class="ag-theme-alpine"></div>`;
+
+    // Define column definitions
+    const columnDefs = [
+        { headerName: "Make", field: "make" },
+        { headerName: "Model", field: "model" },
+        { headerName: "Price", field: "price" }
+    ];
+    
+    // Define row data
+    const rowData = [
+        { make: "Toyota", model: "Corolla", price: 25000 },
+        { make: "Ford", model: "Mustang", price: 35000 },
+        { make: "Tesla", model: "Model 3", price: 45000 }
+    ];
+    
+    // Grid options
+    const gridOptions = {
+        columnDefs: columnDefs,
+        rowData: rowData
+    };
+
+    //inputting the grid
+    console.log("agGrid:", agGrid); // Add this line
+    const gridDiv = document.querySelector("#myGrid");
+    new agGrid.Grid(gridDiv, gridOptions);
+}
+
+
 // Event listener for Invest shortcut button (renders the investment content)
 investShortcutBtn.addEventListener("click", function () {
     mainContentInitiation('Investments');
 
     document.getElementById("MainContentTitleBox").innerHTML += 
-    '<button id="addInvestmentAccount">Add Account</button>';
+    '<button id="addInvestmentAccount">Add Account</button> <button id="calculateInvestments">Calculate</button>';
+
+    //resetting our number back to 1
+    numberOfInvestmentAccounts = 1;
     
 });
 
@@ -129,6 +130,11 @@ mainContentInformationBox.addEventListener("click", function (event) {
     
     if (event.target.id === "addInvestmentAccount") {
         addInvestmentAccount();
+    }
+
+    if (event.target.id === "calculateInvestments") {
+        updateInvestmentDictionary();
+        calculateInvesmentTable();
     }
 });
 

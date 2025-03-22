@@ -58,6 +58,12 @@ body{
     width: 100px;
 }
 
+#myGrid {
+    height: 400px;
+    width: 100%;
+  }
+
+
 #mainContentTableBox {
     display: flex;
     flex-direction: column;
