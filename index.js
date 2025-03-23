@@ -1,6 +1,6 @@
 
 
-import { createGrid} from './imports.js';
+import { createGrid, themeQuartz} from './imports.js';
 // Get references to buttons, dynamic content containers, and the graph container
 
 //pointer to main content box
@@ -16,7 +16,6 @@ const educationShortcutBtn = document.getElementById("educationShortcut");
 const investShortcutBtn = document.getElementById("investShortcut");
 
 //invesment variables
-const calculateInvestmentsBtn = document.getElementById("calculateInvestments");
 let numberOfInvestmentAccounts = 1;
 
 //dictionary to store investment account information
@@ -77,30 +76,53 @@ function updateInvestmentDictionary() {
 function calculateInvesmentTable() {
 
     mainContentTableBox.innerHTML = 
-        `<div id="myGrid" class="ag-theme-alpine"></div>`;
+        `<div id="myGrid"></div>`;
 
-    const myGridElement = document.querySelector("#myGrid");
-    
+        let gridApi;
 
-    // Grid Options: Contains all of the Data Grid configurations
-    const gridOptions = {
-        // Row Data: The data to be displayed.
-        rowData: [
-            { make: "Tesla", model: "Model Y", price: 64950, electric: true },
-            { make: "Ford", model: "F-Series", price: 33850, electric: false },
-            { make: "Toyota", model: "Corolla", price: 29600, electric: false },
-        ],
-        // Column Definitions: Defines the columns to be displayed.
-        columnDefs: [
-            { field: "make" },
-            { field: "model" },
-            { field: "price" },
-            { field: "electric" }
-        ]
-    };
+        const myTheme = themeQuartz
+            .withParams({
+                backgroundColor: "#1f2836",
+                browserColorScheme: "dark",
+                chromeBackgroundColor: {
+                    ref: "foregroundColor",
+                    mix: 0.07,
+                    onto: "backgroundColor"
+                },
+                fontFamily: {
+                    googleFont: "Inclusive Sans"
+                },
+                foregroundColor: "#FFF",
+                headerFontSize: 14
+            });
 
-    createGrid(myGridElement, gridOptions);
-    
+        const columnDefs = [{ field: "make" }, { field: "model" }, { field: "price" }];
+
+        const rowData = (() => {
+          const rowData = [];
+          for (let i = 0; i < 3; i++) {
+            rowData.push({ make: "Toyota", model: "Celica", price: 35000 + i * 1000 });
+            rowData.push({ make: "Ford", model: "Mondeo", price: 32000 + i * 1000 });
+            rowData.push({make: "Porsche",model: "Boxster", price: 72000 + i * 1000});
+          }
+          return rowData;
+        })();
+        
+        const defaultColDef = {
+          flex: 1,
+          minWidth: 100
+        };
+        
+        const gridOptions = {
+          theme: myTheme,
+          columnDefs,
+          rowData,
+          defaultColDef
+        };
+        
+        gridApi = createGrid(document.querySelector("#myGrid"), gridOptions);
+
+        
 }
 
 
