@@ -1,11 +1,13 @@
 //imports
 
 import 'ag-grid-community/styles/ag-grid.css';
-import 'ag-grid-community/styles/ag-theme-alpine.css';
-import { createGrid } from 'ag-grid-community';
-import { themeBalham } from 'ag-grid-community';
+import { createGrid, AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
+
+// Register all Community features
+ModuleRegistry.registerModules([AllCommunityModule]);
+
 
 //exports
-export { createGrid, themeBalham };
+export { createGrid};
 
 

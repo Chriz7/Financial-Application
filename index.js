@@ -1,5 +1,6 @@
 
-import { createGrid, themeBalham } from './imports.js';
+
+import { createGrid} from './imports.js';
 // Get references to buttons, dynamic content containers, and the graph container
 
 //pointer to main content box
@@ -69,14 +70,13 @@ function updateInvestmentDictionary() {
             returnRate: Number(inputs[4].value) / 100 // Convert percentage to decimal
         };
 
-        console.log(investmentAccounts[accountId]);
     }); 
 }
 
 //this function will gather the investment account data and create at table
 function calculateInvesmentTable() {
 
-    mainContentTableBox.innerHTML += 
+    mainContentTableBox.innerHTML = 
         `<div id="myGrid" class="ag-theme-alpine"></div>`;
 
     const myGridElement = document.querySelector("#myGrid");
@@ -85,7 +85,6 @@ function calculateInvesmentTable() {
     // Grid Options: Contains all of the Data Grid configurations
     const gridOptions = {
         // Row Data: The data to be displayed.
-        theme: themeBalham,
         rowData: [
             { make: "Tesla", model: "Model Y", price: 64950, electric: true },
             { make: "Ford", model: "F-Series", price: 33850, electric: false },
@@ -100,7 +99,7 @@ function calculateInvesmentTable() {
         ]
     };
 
-    agGrid.createGrid(myGridElement, gridOptions);
+    createGrid(myGridElement, gridOptions);
     
 }
 
