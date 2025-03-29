@@ -1,0 +1,126 @@
+/* comment */
+
+/* general */
+
+body{
+    font-size: 25px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgb(245, 241, 220);
+}
+
+.MasterGrid {
+    display: grid;
+    /* fixed heights for the first two rows then automatically contain the content for the last row*/
+    grid-template-rows: 120px 800px;
+    grid-template-columns: 1fr 1fr; 
+    gap: 3px;
+}
+
+/* grid-area: row start / col start / row end / col end  (the ending values are exclusive) */
+
+.headerBox {
+    background-color: #209c62;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-right: 10px;
+    position: relative;
+    grid-area: 1 / 1 / 2 / 3;
+}
+
+#mainContentInformationBox {
+    display: flex;
+    flex-direction: column;
+    background-color: #27445D;
+    grid-area: 2 / 1 / 3 / 2;
+}
+
+#mainContentTableBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #5983a7;
+    padding: 10px;
+    grid-area: 2 / 2 / 3 / 3;
+}
+
+#MainContentTitleBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#myGrid {
+    width: 100%;
+    height: 650px;
+    }
+
+
+#MainContentTitle {
+    color: #EFE9D5;
+    font-size: 1.2em;
+}
+
+
+.Shortcuts {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+}
+
+
+#pageTitle {
+    position: absolute;            /* Take it out of flex flow */
+    left: 50%;                     /* Center horizontally */
+    transform: translateX(-50%);   /* Offset by half its width */
+    margin: 0;
+}
+
+.shortcutContainer {
+    width: 100px; /* Fixed width for the div */
+    height: 110px; /* Fixed height for the div */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #000000;
+    margin: 5px;
+    border-radius: 35px;
+    /*box-shadow: [horizontal-offset] [vertical-offset] [blur-radius] [spread-radius (optional)] [color];*/
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.shortcutContainer:hover {
+    background-color: #188552;
+}
+
+/*margin shorthand: top right bottom left*/
+/*margin shorthand: 10px 20px   top/bottom left/right*/
+/*margin shorthand: 10px   10 all sides*/
+.shortcutTitle {
+    margin: 5px 5px;
+    font-size: .8em;
+}
+
+.imageContainer {
+    width: 60px; /* Fixed width for the div */
+    height: 50px; /* Fixed height for the div */
+    display: flex; /* Centers the image inside */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.imageContainer > img {
+    width: 100%; /* Makes the image fill the div */
+    height: auto; /* Keeps the aspect ratio */
+}
+
+.ContentAdd {
+    justify-self: end;
+}
+
+input, button {
+    margin: 5px;
+    padding: 5px;
+}

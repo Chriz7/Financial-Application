@@ -33,7 +33,7 @@ function mainContentInitiation(title) {
 function addInvestmentAccount() {
 
     mainContentInformationBox.innerHTML += 
-        `<div class = "investmentInputsBox" id = "account${numberOfInvestmentAccounts}">
+        `<div class = "investmentInputsBox" id = "accountID${numberOfInvestmentAccounts}">
             <button class = "removeInvestmentAccount">-</button>
             <label>Name <input class="investmentInput" value="Account ${numberOfInvestmentAccounts}"></label>
             <label>Balance ($) <input type="number" value="0" class="investmentInput"></label>
@@ -41,6 +41,7 @@ function addInvestmentAccount() {
             <label>Yearly increase ($) <input type="number" value="0" class="investmentInput"></label>
             <label>Yearly return rate (%) <input type="float" value="0" class="investmentInput"></label>
         </div>`;
+
     numberOfInvestmentAccounts ++;
 }
 
@@ -63,12 +64,11 @@ function updateInvestmentDictionary() {
         // Store data in dictionary
         investmentAccounts[accountId] = {
             name: inputs[0].value,
-            balance: Number(inputs[1].value),
+            startingBalance: Number(inputs[1].value),
             yearlyContribution: Number(inputs[2].value),
             yearlyIncrease: Number(inputs[3].value),
-            returnRate: Number(inputs[4].value) / 100 // Convert percentage to decimal
+            returnRate: Number(inputs[4].value) / 100, // Convert percentage to decimal
         };
-
     }); 
 }
 
@@ -80,6 +80,7 @@ function calculateInvesmentTable() {
 
         let gridApi;
 
+        //creating the theme for our output table
         const myTheme = themeQuartz
             .withParams({
                 backgroundColor: "#1f2836",
@@ -93,38 +94,90 @@ function calculateInvesmentTable() {
                     googleFont: "Inclusive Sans"
                 },
                 foregroundColor: "#FFF",
-                headerFontSize: 14
+                headerFontSize: 18
             });
 
-        const columnDefs = [{ field: "make" }, { field: "model" }, { field: "price" }];
+        //creating our columns for the table
+        const columnDefs = [{ field: "year" }, { field: "account" }, { field: "startingBalance" }, { field: "contributions" }, { field: "interestGained" }, { field: "endingBalance" }];
 
-        const rowData = (() => {
-          const rowData = [];
-          for (let i = 0; i < 3; i++) {
-            rowData.push({ make: "Toyota", model: "Celica", price: 35000 + i * 1000 });
-            rowData.push({ make: "Ford", model: "Mondeo", price: 32000 + i * 1000 });
-            rowData.push({make: "Porsche",model: "Boxster", price: 72000 + i * 1000});
-          }
-          return rowData;
-        })();
-        
+        //creating the shell for our our row level data
+        const rowData = [];
+
         const defaultColDef = {
           flex: 1,
           minWidth: 100
         };
         
-        const gridOptions = {
-          theme: myTheme,
-          columnDefs,
-          rowData,
-          defaultColDef
+        const yearsToProject = 30;
+
+        //iterating through each year for the projection
+        for (let year = 1; year <= yearsToProject; year++) {
+
+            //creating our row shell. this will refresh at every iteration
+            let templateRow = {year: year.toString(), account: 'test' , startingBalance: 0, contributions: 0, interestGained: 0, endingBalance: 0};
+            
+
+            let startingBalanceYearTotal = 0;
+            let contributionYearTotal = 0;
+            let interestGainedYearTotal = 0;
+            let endingBalanceYearTotal = 0;
+
+            //iterating through each account we have
+            for (let [accountID, accountInformation] of Object.entries(investmentAccounts))
+            {
+
+                //also refreshing our template row here to prepare for the next account
+                let templateRow = {year: year.toString(), account: 'test', startingBalance: 0, contributions: 0, interestGained: 0, endingBalance: 0};
+
+                //handling the account name
+                templateRow['account'] = accountInformation['name'];
+
+                //handling starting balance
+                templateRow['startingBalance'] = Math.ceil(accountInformation['startingBalance']);
+
+                //handling contributions
+                templateRow['contributions'] = accountInformation['yearlyContribution'];
+
+                //handling interest gained
+                const interestGained = (accountInformation['startingBalance'] + accountInformation['yearlyContribution']) * accountInformation['returnRate']
+                templateRow['interestGained'] = Math.ceil(interestGained);
+
+                //handling ending balance
+                templateRow['endingBalance'] = Math.ceil(accountInformation['startingBalance'] + interestGained + accountInformation['yearlyContribution']);
+
+                //pushing our data to be adding to the table
+                rowData.push(templateRow);
+
+                //updating our data for next year
+                accountInformation['startingBalance'] = templateRow['endingBalance']
+                accountInformation['yearlyContribution'] += accountInformation['yearlyIncrease']
+
+                //before moving onto the next account be sure to add the totals to the yearly sum
+                startingBalanceYearTotal += templateRow['startingBalance'];
+                contributionYearTotal += templateRow['contributions'];
+                interestGainedYearTotal += templateRow['interestGained'];
+                endingBalanceYearTotal += templateRow['endingBalance'];
+            }
+
+            //do a total row addition here
+
+            templateRow = {year: "Year " + year + ": Total", startingBalance: Number(startingBalanceYearTotal), contributions: contributionYearTotal, interestGained: Number(interestGainedYearTotal), endingBalance: Number(endingBalanceYearTotal)};
+            rowData.push(templateRow);
         };
-        
+
+        //adding the content to our table dictionary
+        const gridOptions = {
+            theme: myTheme,
+            columnDefs,
+            rowData,
+            defaultColDef
+          };
+          
+        //creating the table
         gridApi = createGrid(document.querySelector("#myGrid"), gridOptions);
 
-        
-}
 
+}
 
 // Event listener for Invest shortcut button (renders the investment content)
 investShortcutBtn.addEventListener("click", function () {
@@ -141,6 +194,7 @@ investShortcutBtn.addEventListener("click", function () {
 // Attach event listener for the add account button. this added it to the parent container so we dont have to worry about reattaching it when we clear the contents
 mainContentInformationBox.addEventListener("click", function (event) {
     
+
     //triggers if the button we clicked has the class removeButton
     if (event.target.classList.contains("removeInvestmentAccount")) {
         // Find the parent div of the button (the investment account div)
@@ -165,6 +219,9 @@ budgetShortcutBtn.addEventListener("click", function () {
     mainContentInitiation(`
         <p>Budgeting Tools Coming Soon...</p>
     `, 'Budgeting');
+
+    mainContentTableBox.innerHTML = ``;
+    
 });
 
 // Event listener for Pay Debt button (renders debt content)
@@ -172,6 +229,9 @@ debtShortcutBtn.addEventListener("click", function () {
     mainContentInitiation(`
         <p>Debt Management Strategies Coming Soon...</p>
     `, 'Tackling Debt');
+
+    mainContentTableBox.innerHTML = ``;
+    
 });
 
 // Event listener for Learn button (renders education content)
@@ -179,4 +239,7 @@ educationShortcutBtn.addEventListener("click", function () {
     mainContentInitiation(`
         <p>Financial Education Resources Coming Soon...</p>
     `, 'Financial Education');
+
+    mainContentTableBox.innerHTML = ``;
+    
 });
