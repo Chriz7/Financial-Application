@@ -1,6 +1,10 @@
 
 
-import { createGrid, themeQuartz} from './imports.js';
+const { createGrid, AllCommunityModule, ModuleRegistry, themeQuartz } = window.agGrid;
+
+// Register all Community features
+ModuleRegistry.registerModules([AllCommunityModule]);
+
 // Get references to buttons, dynamic content containers, and the graph container
 
 //pointer to main content box
