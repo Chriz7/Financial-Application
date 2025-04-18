@@ -5,8 +5,7 @@ import { createGrid, themeQuartz} from './imports.js';
 
 //pointer to main content box
 const mainContentInformationBox = document.getElementById("mainContentInformationBox");
-const mainContentTitle = document.getElementById("MainContentTitle");
-const mainContentTableBox = document.getElementById("mainContentTableBox");
+const projectionsContainer = document.getElementById("projectionsContainer");
 
 
 //pointers to shourtcut buttons
@@ -24,7 +23,7 @@ const investmentAccounts = {};
 // Function to clear and update mainContentInformationBox content
 function mainContentInitiation(title) {
     mainContentInformationBox.innerHTML = 
-        `<div id="MainContentTitleBox"> 
+        `<div id="MainContentTitleBox">
             <p id="MainContentTitle">${title}</p> 
         </div>`;
 }
@@ -32,15 +31,29 @@ function mainContentInitiation(title) {
 //adds an investment account to the mainContentBox. This is so the user can manage multiple investment accounts
 function addInvestmentAccount() {
 
-    mainContentInformationBox.innerHTML += 
-        `<div class = "investmentInputsBox" id = "accountID${numberOfInvestmentAccounts}">
-            <button class = "removeInvestmentAccount">-</button>
-            <label>Name <input class="investmentInput" value="Account ${numberOfInvestmentAccounts}"></label>
-            <label>Balance ($) <input type="number" value="0" class="investmentInput"></label>
+    // Create a new div for the investment account
+    const accountDiv = document.createElement("div");
+    accountDiv.classList.add("investmentBox");
+    accountDiv.id = `accountID${numberOfInvestmentAccounts}`;
+
+    // Set the innerHTML for the new account div
+    accountDiv.innerHTML = `
+        <div class="removeButtonContainer">
+            <button class="removeInvestmentAccount">-</button>
+        </div>
+        <div class="investmentInputsBox">
+            <label class="topRowBox">Name <input id= "nameInput" class="investmentInput" value="Account ${numberOfInvestmentAccounts}"></label>
+            <label class="topRowBox">Balance ($) <input type="number" value="0" id= "balanceInput" class="investmentInput"></label>
             <label>Yearly contribution ($) <input type="number" value="0" class="investmentInput"></label>
             <label>Yearly increase ($) <input type="number" value="0" class="investmentInput"></label>
             <label>Yearly return rate (%) <input type="float" value="0" class="investmentInput"></label>
-        </div>`;
+        </div>
+        
+    `;
+
+    // Append the new account div to the container without clearing existing content
+    // Using += will cause the webpage to be rerendered which will clear the entered content
+    mainContentInformationBox.appendChild(accountDiv);
 
     numberOfInvestmentAccounts ++;
 }
@@ -72,8 +85,19 @@ function updateInvestmentDictionary() {
     }); 
 }
 
+function formatIntoCurrency(value) {
+    return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    }).format(value);
+}
+
 //this function will gather the investment account data and create at table
 function calculateInvesmentTable() {
+
+    const mainContentTableBox = document.getElementById("mainContentTableBox");
 
     mainContentTableBox.innerHTML = 
         `<div id="myGrid"></div>`;
@@ -98,17 +122,23 @@ function calculateInvesmentTable() {
             });
 
         //creating our columns for the table
-        const columnDefs = [{ field: "year" }, { field: "account" }, { field: "startingBalance" }, { field: "contributions" }, { field: "interestGained" }, { field: "endingBalance" }];
+        const columnDefs = [
+            { field: "year", headerClass: 'table-headerClass', cellClass: 'table-cell'}, 
+            { field: "account", headerClass: 'table-headerClass', cellClass: 'table-cell'}, 
+            { field: "startingBalance", headerClass: 'table-headerClass', cellClass: 'table-cell' }, 
+            { field: "contributions", headerClass: 'table-headerClass', cellClass: 'table-cell' }, 
+            { field: "interestGained", headerClass: 'table-headerClass', cellClass: 'table-cell' }, 
+            { field: "endingBalance", headerClass: 'table-headerClass', cellClass: 'table-cell' }];
 
         //creating the shell for our our row level data
         const rowData = [];
 
         const defaultColDef = {
           flex: 1,
-          minWidth: 100
+          minWidth: 80
         };
-        
-        const yearsToProject = 30;
+
+        const yearsToProject = document.getElementById("yearsInput").value;
 
         //iterating through each year for the projection
         for (let year = 1; year <= yearsToProject; year++) {
@@ -133,36 +163,54 @@ function calculateInvesmentTable() {
                 templateRow['account'] = accountInformation['name'];
 
                 //handling starting balance
-                templateRow['startingBalance'] = Math.ceil(accountInformation['startingBalance']);
+                let startingBalanceCalcuation = Math.ceil(accountInformation['startingBalance']);
+                templateRow['startingBalance'] = formatIntoCurrency(startingBalanceCalcuation);
 
                 //handling contributions
-                templateRow['contributions'] = accountInformation['yearlyContribution'];
+                let contributionTableValue = accountInformation['yearlyContribution'];
+                templateRow['contributions'] = formatIntoCurrency(contributionTableValue);
 
                 //handling interest gained
-                const interestGained = (accountInformation['startingBalance'] + accountInformation['yearlyContribution']) * accountInformation['returnRate']
-                templateRow['interestGained'] = Math.ceil(interestGained);
+                const interestGained = (startingBalanceCalcuation + accountInformation['yearlyContribution']) * accountInformation['returnRate']
+                templateRow['interestGained'] = formatIntoCurrency(Math.ceil(interestGained));
 
                 //handling ending balance
-                templateRow['endingBalance'] = Math.ceil(accountInformation['startingBalance'] + interestGained + accountInformation['yearlyContribution']);
+                let endingBalanceCalculation = Math.ceil(startingBalanceCalcuation + interestGained + accountInformation['yearlyContribution']);
+                templateRow['endingBalance'] = formatIntoCurrency(endingBalanceCalculation);
 
                 //pushing our data to be adding to the table
                 rowData.push(templateRow);
 
                 //updating our data for next year
-                accountInformation['startingBalance'] = templateRow['endingBalance']
+                accountInformation['startingBalance'] = endingBalanceCalculation
                 accountInformation['yearlyContribution'] += accountInformation['yearlyIncrease']
 
                 //before moving onto the next account be sure to add the totals to the yearly sum
-                startingBalanceYearTotal += templateRow['startingBalance'];
-                contributionYearTotal += templateRow['contributions'];
-                interestGainedYearTotal += templateRow['interestGained'];
-                endingBalanceYearTotal += templateRow['endingBalance'];
+                startingBalanceYearTotal += startingBalanceCalcuation;
+                contributionYearTotal += contributionTableValue;
+              interestGainedYearTotal += interestGained;
+                endingBalanceYearTotal += endingBalanceCalculation;
             }
 
             //do a total row addition here
-
-            templateRow = {year: "Year " + year + ": Total", startingBalance: Number(startingBalanceYearTotal), contributions: contributionYearTotal, interestGained: Number(interestGainedYearTotal), endingBalance: Number(endingBalanceYearTotal)};
+            templateRow = {year: "Year " + year + ": Total", 
+                startingBalance: formatIntoCurrency(startingBalanceYearTotal), 
+                contributions: formatIntoCurrency(contributionYearTotal), 
+                interestGained: formatIntoCurrency(interestGainedYearTotal), 
+                endingBalance: formatIntoCurrency(endingBalanceYearTotal)};
+                
             rowData.push(templateRow);
+
+            
+            if (year == 1) {
+                //resetting the original value then adding the value of the starting portfolio value
+                document.getElementById("startingPortfolioValue").innerHTML = '';
+                document.getElementById("startingPortfolioValue").innerHTML = formatIntoCurrency(startingBalanceYearTotal);
+            } else if (year == yearsToProject) {
+                //resetting the original value then adding the final value of the portfolio
+                document.getElementById("endingPortfolioValue").innerHTML = '';
+                document.getElementById("endingPortfolioValue").innerHTML = formatIntoCurrency(endingBalanceYearTotal);
+            };
         };
 
         //adding the content to our table dictionary
@@ -176,19 +224,56 @@ function calculateInvesmentTable() {
         //creating the table
         gridApi = createGrid(document.querySelector("#myGrid"), gridOptions);
 
-
 }
 
 // Event listener for Invest shortcut button (renders the investment content)
 investShortcutBtn.addEventListener("click", function () {
     mainContentInitiation('Investments');
 
+    //adding the information hover text
     document.getElementById("MainContentTitleBox").innerHTML += 
-    '<button id="addInvestmentAccount">Add Account</button> <button id="calculateInvestments">Calculate</button>';
+    `        
+        <button id="addInvestmentAccount">Add Account</button> 
+        <button id="calculateInvestments">Calculate</button>
+        <div class="icon-container">
+            <p class="icon"> i </p> 
+            <div class="hover-box">
+                <p class="instructionsText">Instructions:</p> 
+                <ol class="instructionsText">
+                    <li>Enter your investment accounts using the green "Add Account" button.</li><br>
+                    <li>Enter the number of years you would like to project your portfolio to grow.</li><br>
+                    <li>Click the green "Calculate" button then watch your money work for you!</li>
+                </ol>
+            </div>
+        </div> 
+    `;
 
     //resetting our number back to 1
     numberOfInvestmentAccounts = 1;
-    
+
+    //adding the portfolio headers and the container for the projection table
+    projectionsContainer.innerHTML = `
+        <div id="projectionHeaders">
+            
+            <div class="projectionHeader">
+                <label>Years to project <input type="number" value="0" id="yearsInput"></label>
+            </div>
+        
+            <div class="projectionHeader">
+                <p>Starting Portfolio Value</p>
+                <p id="startingPortfolioValue"> </p>
+            </div>
+
+            <div class="projectionHeader">
+                <p>Final Portfolio Value</p>
+                <p id="endingPortfolioValue"> </p>
+            </div>
+        </div>
+
+        <div id="mainContentTableBox">
+        </div>
+        `;
+
 });
 
 // Attach event listener for the add account button. this added it to the parent container so we dont have to worry about reattaching it when we clear the contents
@@ -198,7 +283,7 @@ mainContentInformationBox.addEventListener("click", function (event) {
     //triggers if the button we clicked has the class removeButton
     if (event.target.classList.contains("removeInvestmentAccount")) {
         // Find the parent div of the button (the investment account div)
-        const investmentAccountDiv = event.target.closest('.investmentInputsBox');
+        const investmentAccountDiv = event.target.closest('.investmentBox');
         
         // Remove the parent div from the DOM
         investmentAccountDiv.remove();

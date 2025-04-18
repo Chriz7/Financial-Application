@@ -1,34 +1,189 @@
 /* comment */
 
+.investmentBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;    
+    background-color: #5983a7;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    margin: 5px;
+    padding: 2px;
+}
+
 .investmentInputsBox {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    background-color: #5983a7;
-    border-radius: 20px;
-    margin: 20px;
-    padding: 5px;
     gap: 10px;
+    padding: 5px 0px;
+    width: 90%;
 }
 
 .investmentInputsBox > label {
     font-size: .65em;
     background-color: #7d9fbd;
-    display: flex; /* Make each label a flex container */
+    display: flex; 
     flex-direction: column;
-    align-items: center; /* Center text and input vertically within label */
+    align-items: center; 
     min-width: auto; /* Ensure all labels have the same minimum width */
-    text-align: center; /* Fallback for text alignment */
+    text-align: center; 
     border: 1px solid #000000;
     border-radius: 10px;
     padding: 0px 5px;
 }
 
 .investmentInput {
-    width: 70px;
+    width: 80px;
 }
 
+#projectionHeaders {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+    margin-top: 5px;
+}
+
+.projectionHeader p {
+    margin: 0px;
+}
+
+.projectionHeader {
+    font-size: .75em;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#yearsInput {
+    width: 45px;
+}
+
+#MainContentTitleBox > button {
+    background-color: #209c62; 
+    color: white; 
+    border: none;
+    border-radius: 5px; 
+    padding: 10px 20px;
+    font-family: "Roboto", sans-serif; 
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer; 
+    transition: background-color 0.2s ease;
+}
+
+.removeButtonContainer {
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.removeInvestmentAccount {
+    background-color: #fa4242; 
+    color: rgb(255, 255, 255); 
+    border: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; 
+    padding: 0px;
+    font-family: "Roboto", sans-serif; 
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer; 
+    transition: background-color 0.2s ease;
+}
+
+.removeInvestmentAccount:hover {
+    background-color: #b62727;
+}
+
+#MainContentTitleBox > button:hover {
+    background-color: #176e45;
+}
+
+@media (max-width: 700px) {
+
+    #MainContentTitleBox > button {
+        padding: 4px 8px;
+        font-size: .3em;
+    }
+
+    .icon-container {
+        width: 20px;  /* making height and width the same so when when do border-radius 50% we get a circle */
+        height: 20px; 
+        margin-left: 5px;
+    }
+    
+    .icon {
+        font-size: .3em;    /* Adjust size of "i" */
+        font-weight: bold;
+        color: black;
+        margin: 0;
+    }
+
+    .investmentInputsBox {
+        flex-wrap: wrap; /* only do this on mobile given the limited width*/
+        gap: 3px;
+    }
+
+    .removeButtonContainer {
+        width: 30px;
+    }
+
+    .investmentInputsBox > label {
+        font-size: .32em;
+        padding: 0px 3px;
+        height: 40px;
+    }
+
+    .investmentInput {
+        height: 30px;
+    }
+
+    .investmentInput, #yearsInput {
+        width: 30px;
+        font-size: 7px;
+        height: 25px;
+    }
+
+    #nameInput, #balanceInput {
+        width: 60px;
+    }
+
+    .topRowBox {
+        margin: 0px 20px;
+    }
+
+    .projectionHeader {
+        font-size: .4em;
+        padding: 2px 5px;
+    }
+
+    #yearsInput {
+        width: 25px;
+    }
+
+    .removeInvestmentAccount {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%; 
+    }
+
+    .table-headerClass {
+        font-size: .6em;
+        word-break: normal;
+    }
+
+    .table-cell{
+        font-size: .8em;
+      }
 
 
-
+}
