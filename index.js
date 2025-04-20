@@ -135,8 +135,8 @@ function calculateInvesmentTable() {
             });
 
         //creating our columns for the table
-        const columnDefs = [
-            { field: "year", headerClass: 'table-headerClass', cellClass: 'table-cell'}, 
+        const columnDefs = [ 
+            { field: "year", headerClass: 'table-headerClass', cellClass: 'table-cell'},
             { field: "account", headerClass: 'table-headerClass', cellClass: 'table-cell'}, 
             { field: "contribution", headerClass: 'table-headerClass', cellClass: 'table-cell' }, 
             { field: "interestGained", headerClass: 'table-headerClass', cellClass: 'table-cell' }, 
@@ -205,7 +205,7 @@ function calculateInvesmentTable() {
 
             //do a total row addition here
             templateRow = {year: "Total", 
-                contributions: formatIntoCurrency(contributionYearTotal), 
+                contribution: formatIntoCurrency(contributionYearTotal), 
                 interestGained: formatIntoCurrency(interestGainedYearTotal), 
                 endingBalance: formatIntoCurrency(endingBalanceYearTotal)};
                 
@@ -253,8 +253,9 @@ investShortcutBtn.addEventListener("click", function () {
                     <li>Enter your investment accounts using the green "Add Account" button.</li><br>
                     <li>Enter the number of years you would like to project your portfolio to grow.</li><br>
                     <li>Click the green "Calculate" button then watch your money work for you!</li>
+                    <li>To make edits, simply update the inputs you would like and click calculate again.</li>
                 </ol>
-                <p>For mobile, tab outside the help box to close.</p> 
+                <p class="instructionsText">For mobile, tab outside the help box to close.</p> 
             </div>
         </div> 
     `;

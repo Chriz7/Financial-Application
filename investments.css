@@ -167,7 +167,11 @@
     .projectionHeader {
         font-size: .4em;
         padding: 2px 5px;
-    }    
+    }
+
+    #startingPortfolioValue, #endingPortfolioValue {
+        font-weight: bold;
+    }
 
     .removeInvestmentAccount {
         width: 15px;
