@@ -181,7 +181,7 @@ input, button {
     .MasterGrid {
         gap: 3px;
         grid-template-columns: 1fr 0fr;
-        grid-template-rows: 12vh minmax(35vh, auto) minmax(35vh, auto);
+        grid-template-rows: 12vh minmax(300px, auto) minmax(300px, auto);
 
     }
 
@@ -192,7 +192,7 @@ input, button {
     }
 
     #pageTitle {
-        font-size: .55em;
+        font-size: .65em;
     }
 
     #mainContentInformationBox {
@@ -212,13 +212,13 @@ input, button {
     }
 
     .shortcutContainer {
-        width: 50px; /* Fixed width for the div */
+        width: 60px; /* Fixed width for the div */
         margin: 2px 2px;
-        height: 45px; 
+        height: 55px; 
     }
 
     #MainContentTitle {
-        font-size: .45em;
+        font-size: .65em;
     }
 
     .shortcutContainer > img {

@@ -38,19 +38,28 @@ function addInvestmentAccount() {
     // Create a new div for the investment account
     const accountDiv = document.createElement("div");
     accountDiv.classList.add("investmentBox");
-    accountDiv.id = `accountID${numberOfInvestmentAccounts}`;
 
     // Set the innerHTML for the new account div
     accountDiv.innerHTML = `
         <div class="removeButtonContainer">
             <button class="removeInvestmentAccount">-</button>
         </div>
-        <div class="investmentInputsBox">
-            <label class="topRowBox">Name <input id= "nameInput" class="investmentInput" value="Account ${numberOfInvestmentAccounts}"></label>
-            <label class="topRowBox">Balance ($) <input type="number" value="0" id= "balanceInput" class="investmentInput"></label>
-            <label>Yearly contribution ($) <input type="number" value="0" class="investmentInput"></label>
-            <label>Yearly increase ($) <input type="number" value="0" class="investmentInput"></label>
-            <label>Yearly return rate (%) <input type="float" value="0" class="investmentInput"></label>
+        <div class="investmentInputsBox" id = "accountID ${numberOfInvestmentAccounts}">
+            <label class="topRowBox">Name 
+                <input id="nameInput" class="investmentInput" value="Account ${numberOfInvestmentAccounts}">
+            </label>
+            <label class="topRowBox">Balance ($) 
+                <input id="balanceInput" type="number" value="0" class="investmentInput">
+            </label>
+            <label>Yearly contribution ($) 
+                <input id="contributionInput" type="number" value="0" class="investmentInput">
+            </label>
+            <label>Yearly increase ($) 
+                <input id="yearlyIncreaseInput" type="number" value="0" class="investmentInput">
+            </label>
+            <label>Yearly return rate (%) 
+                <input id="yearlyRateInput" type="float" value="0" class="investmentInput">
+            </label>
         </div>
         
     `;
@@ -62,7 +71,7 @@ function addInvestmentAccount() {
     numberOfInvestmentAccounts ++;
 }
 
-// New function to collect and store all investment account data
+// collect and store all investment account data
 function updateInvestmentDictionary() {
     
     // Clear existing dictionary
@@ -129,8 +138,7 @@ function calculateInvesmentTable() {
         const columnDefs = [
             { field: "year", headerClass: 'table-headerClass', cellClass: 'table-cell'}, 
             { field: "account", headerClass: 'table-headerClass', cellClass: 'table-cell'}, 
-            { field: "startingBalance", headerClass: 'table-headerClass', cellClass: 'table-cell' }, 
-            { field: "contributions", headerClass: 'table-headerClass', cellClass: 'table-cell' }, 
+            { field: "contribution", headerClass: 'table-headerClass', cellClass: 'table-cell' }, 
             { field: "interestGained", headerClass: 'table-headerClass', cellClass: 'table-cell' }, 
             { field: "endingBalance", headerClass: 'table-headerClass', cellClass: 'table-cell' }];
 
@@ -149,7 +157,6 @@ function calculateInvesmentTable() {
 
             //creating our row shell. this will refresh at every iteration
             let templateRow = {year: year.toString(), account: 'test' , startingBalance: 0, contributions: 0, interestGained: 0, endingBalance: 0};
-            
 
             let startingBalanceYearTotal = 0;
             let contributionYearTotal = 0;
@@ -172,7 +179,7 @@ function calculateInvesmentTable() {
 
                 //handling contributions
                 let contributionTableValue = accountInformation['yearlyContribution'];
-                templateRow['contributions'] = formatIntoCurrency(contributionTableValue);
+                templateRow['contribution'] = formatIntoCurrency(contributionTableValue);
 
                 //handling interest gained
                 const interestGained = (startingBalanceCalcuation + accountInformation['yearlyContribution']) * accountInformation['returnRate']
@@ -192,13 +199,12 @@ function calculateInvesmentTable() {
                 //before moving onto the next account be sure to add the totals to the yearly sum
                 startingBalanceYearTotal += startingBalanceCalcuation;
                 contributionYearTotal += contributionTableValue;
-              interestGainedYearTotal += interestGained;
+                interestGainedYearTotal += interestGained;
                 endingBalanceYearTotal += endingBalanceCalculation;
             }
 
             //do a total row addition here
-            templateRow = {year: "Year " + year + ": Total", 
-                startingBalance: formatIntoCurrency(startingBalanceYearTotal), 
+            templateRow = {year: "Total", 
                 contributions: formatIntoCurrency(contributionYearTotal), 
                 interestGained: formatIntoCurrency(interestGainedYearTotal), 
                 endingBalance: formatIntoCurrency(endingBalanceYearTotal)};
@@ -248,6 +254,7 @@ investShortcutBtn.addEventListener("click", function () {
                     <li>Enter the number of years you would like to project your portfolio to grow.</li><br>
                     <li>Click the green "Calculate" button then watch your money work for you!</li>
                 </ol>
+                <p>For mobile, tab outside the help box to close.</p> 
             </div>
         </div> 
     `;
@@ -309,7 +316,7 @@ budgetShortcutBtn.addEventListener("click", function () {
         <p>Budgeting Tools Coming Soon...</p>
     `, 'Budgeting');
 
-    mainContentTableBox.innerHTML = ``;
+    projectionsContainer.innerHTML = ``;
     
 });
 
@@ -319,7 +326,7 @@ debtShortcutBtn.addEventListener("click", function () {
         <p>Debt Management Strategies Coming Soon...</p>
     `, 'Tackling Debt');
 
-    mainContentTableBox.innerHTML = ``;
+    projectionsContainer.innerHTML = ``;
     
 });
 
@@ -329,6 +336,6 @@ educationShortcutBtn.addEventListener("click", function () {
         <p>Financial Education Resources Coming Soon...</p>
     `, 'Financial Education');
 
-    mainContentTableBox.innerHTML = ``;
+    projectionsContainer.innerHTML = ``;
     
 });

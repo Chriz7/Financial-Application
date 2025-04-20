@@ -112,17 +112,17 @@
 
     #MainContentTitleBox > button {
         padding: 4px 8px;
-        font-size: .3em;
+        font-size: .45em;
     }
 
     .icon-container {
-        width: 20px;  /* making height and width the same so when when do border-radius 50% we get a circle */
-        height: 20px; 
+        width: 25px;  /* making height and width the same so when when do border-radius 50% we get a circle */
+        height: 25px; 
         margin-left: 5px;
     }
     
     .icon {
-        font-size: .3em;    /* Adjust size of "i" */
+        font-size: .35em;    /* Adjust size of "i" */
         font-weight: bold;
         color: black;
         margin: 0;
@@ -139,36 +139,35 @@
 
     .investmentInputsBox > label {
         font-size: .32em;
-        padding: 0px 3px;
-        height: 40px;
+        padding: 2px 3px;
     }
 
-    .investmentInput {
-        height: 30px;
-    }
-
-    .investmentInput, #yearsInput {
-        width: 30px;
+    #yearsInput, .investmentInput {
+        height: 18px;
         font-size: 7px;
-        height: 25px;
     }
 
     #nameInput, #balanceInput {
         width: 60px;
     }
 
+    #yearsInput, #yearlyRateInput {
+        width: 25px;
+    }
+
+    #contributionInput, #yearlyIncreaseInput {
+        width: 40px;
+    }
+
     .topRowBox {
         margin: 0px 20px;
+        width: 80px;
     }
 
     .projectionHeader {
         font-size: .4em;
         padding: 2px 5px;
-    }
-
-    #yearsInput {
-        width: 25px;
-    }
+    }    
 
     .removeInvestmentAccount {
         width: 15px;
