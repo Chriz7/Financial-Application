@@ -529,7 +529,7 @@ export function setupInvestmentShortcutListener (investShortcutBtn, mainContentI
                             <ol class="instructionsText">
                                 <li>Enter your investment accounts using the green "Add Account" button.</li><br>
                                 <li>Enter the number of years you would like to project your investments to grow.</li><br>
-                                <li>Enter the retirement information. Expenses can be taxes/fees/etc.</li><br>
+                                <li>Enter the yearly retirement information. Expenses can be taxes/fees/etc.</li><br>
                                 <li>Click the green "Calculate" button then watch your money work for you!</li><br>
                                 <li>To make edits, simply update the inputs you would like and click calculate again.</li>
                             </ol>
