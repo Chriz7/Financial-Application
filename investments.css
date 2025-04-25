@@ -1,15 +1,89 @@
-/* comment */
+
+.controlPanel, .investmentAccountsContainer, .investmentBox, .investmentInputsBox > label,
+.projectionHeader, .removeButtonContainer, .controlInput, .investmentChartContainer, .retirementChartContainer, .investmentSection,
+.controlPanelContainer, .projectionControls, .retirementSection, .investmentTableContainer, .retirementTableContainer
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.controlPanel {
+    flex-direction: row;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.controlPanelContainer {
+    flex-direction: column;
+    border: 1px solid #000000;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    margin: 10px 20px;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+.controlPanelHeader {
+    font-weight: bold;
+    font-size: .8em;
+    margin: 5px 0px;
+}
+
+.projectionControls {
+    flex-direction: row;
+}
+
+#withdrawInput, #returnRateInput, #yearsToInvest, #retirementYears {
+    width: 50px;
+    font-size: .8em;
+}
+
+#expensesInput {
+    width: 85px;
+    font-size: .8em;
+}
+
+.investmentSection, .retirementSection
+{
+    flex-direction: column;
+    box-shadow: 5px 5px 15px rgba(255, 255, 255, 0.295);
+    border-radius: 20px;
+    padding: 5px;
+    width: 97%;
+    margin: 20px 0px;
+}
+
+.sectionHeader {
+    color: #EFE9D5;
+    font-weight: bold;
+    font-size: .9em;
+}
+
+.investmentAccountsContainer {
+    background-color: #3b6891;
+    border-radius: 20px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    padding: 5px;
+    width: 90%;
+    flex-direction: column;
+    margin: 10px 0px;
+    min-height: 300px;
+    max-height: 450px;
+    overflow-y: auto; /* scrolls when content overflows */
+}
+
+.onScreenGuidance {
+    margin: 5px 0px;
+}
 
 .investmentBox {
-    display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;    
     background-color: #5983a7;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
     border-radius: 20px;
-    margin: 5px;
+    margin: 10px 0px;
     padding: 2px;
+    width: 95%;
 }
 
 .investmentInputsBox {
@@ -23,11 +97,9 @@
 }
 
 .investmentInputsBox > label {
-    font-size: .65em;
+    font-size: .8em;
     background-color: #7d9fbd;
-    display: flex; 
     flex-direction: column;
-    align-items: center; 
     min-width: auto; /* Ensure all labels have the same minimum width */
     text-align: center; 
     border: 1px solid #000000;
@@ -37,53 +109,78 @@
 
 .investmentInput {
     width: 80px;
+    font-size: .8em;
 }
 
-#projectionHeaders {
+.projectionHeaders {
     display: flex;
     flex-direction: row;
     width: 100%;
     justify-content: space-evenly;
-    margin-top: 5px;
+    margin: 10px;
+}
+
+#nameInput {
+    width: 120px;
+}
+
+#balanceInput {
+    width: 100px;
+}
+
+#yearlyRateInput {
+    width: 50px;
 }
 
 .projectionHeader p {
     margin: 0px;
 }
 
+.calculatedValue {
+    font-weight: bold;
+}
+
 .projectionHeader {
+    background-color: #5983a7;
     font-size: .75em;
     border: 1px solid #000000;
     border-radius: 10px;
-    padding: 5px 10px;
-    display: flex;
+    padding: 10px 20px;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-#yearsInput {
-    width: 45px;
-}
 
-#MainContentTitleBox > button {
+
+
+.controlButton, .controlInput {
+    font-size: .8em;
     background-color: #209c62; 
-    color: white; 
     border: none;
     border-radius: 5px; 
-    padding: 10px 20px;
     font-family: "Roboto", sans-serif; 
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
     cursor: pointer; 
     transition: background-color 0.2s ease;
+    margin: 10px 10px;
+    height: 45px;
 }
+
+.controlButton {
+    padding: 10px;
+}
+
+.controlButton:hover {
+    background-color: #176e45;
+}
+
+.controlInput {
+    padding: 0px 5px;
+}
+
 
 .removeButtonContainer {
     width: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .removeInvestmentAccount {
@@ -104,89 +201,34 @@
     background-color: #b62727;
 }
 
-#MainContentTitleBox > button:hover {
-    background-color: #176e45;
+.investmentTableContainer, .retirementTableContainer {
+    flex-direction: column;
+    width: 90%;
+    height: 400px;
+    margin: 10px 0px;
 }
 
+#investmentGrid, #retirementGrid {
+    flex: 1;
+    width: 100%;
+}
+
+
+.investmentChartContainer, .retirementChartContainer {
+    width: 90%;
+    min-height: 300px;
+    max-height: 550px;
+    margin: 10px 0px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+#investmentChart, #retirementChart {
+    height: 100%;
+    width: 100%;
+}
+/* for mobile view */
 @media (max-width: 700px) {
-
-    #MainContentTitleBox > button {
-        padding: 4px 8px;
-        font-size: .45em;
-    }
-
-    .icon-container {
-        width: 25px;  /* making height and width the same so when when do border-radius 50% we get a circle */
-        height: 25px; 
-        margin-left: 5px;
-    }
-    
-    .icon {
-        font-size: .35em;    /* Adjust size of "i" */
-        font-weight: bold;
-        color: black;
-        margin: 0;
-    }
-
-    .investmentInputsBox {
-        flex-wrap: wrap; /* only do this on mobile given the limited width*/
-        gap: 3px;
-    }
-
-    .removeButtonContainer {
-        width: 30px;
-    }
-
-    .investmentInputsBox > label {
-        font-size: .32em;
-        padding: 2px 3px;
-    }
-
-    #yearsInput, .investmentInput {
-        height: 18px;
-        font-size: 7px;
-    }
-
-    #nameInput, #balanceInput {
-        width: 60px;
-    }
-
-    #yearsInput, #yearlyRateInput {
-        width: 25px;
-    }
-
-    #contributionInput, #yearlyIncreaseInput {
-        width: 40px;
-    }
-
-    .topRowBox {
-        margin: 0px 20px;
-        width: 80px;
-    }
-
-    .projectionHeader {
-        font-size: .4em;
-        padding: 2px 5px;
-    }
-
-    #startingPortfolioValue, #endingPortfolioValue {
-        font-weight: bold;
-    }
-
-    .removeInvestmentAccount {
-        width: 15px;
-        height: 15px;
-        border-radius: 50%; 
-    }
-
-    .table-headerClass {
-        font-size: .6em;
-        word-break: normal;
-    }
-
-    .table-cell{
-        font-size: .8em;
-      }
 
 
 }
