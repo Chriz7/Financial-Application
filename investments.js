@@ -518,8 +518,10 @@ export function calculateRetirement() {
 export function setupInvestmentShortcutListener (investShortcutBtn, mainContentInitiation) { 
     investShortcutBtn.addEventListener("click", function () {
 
+        general.clearContainers();
+
         //adding the title for the investment section
-        mainContentInitiation('Wealth Management');
+        mainContentInitiation('Investing and Retirement');
 
         general.introContainer.insertAdjacentHTML('beforeend', 
             `<div class="icon-container">

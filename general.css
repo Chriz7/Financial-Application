@@ -14,7 +14,7 @@ html {
 body{
     font-size: 25px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: rgb(245, 241, 220);
+    background-color: #EFE9D5;
     box-sizing: border-box;
 }
 
@@ -87,26 +87,30 @@ body{
 }
 
 #pageTitle {
+    font-weight: bold;
     margin: 0;
     font-size: 1.2em;
 }
 
 .shortcutContainer {
     width: 90px; /* Fixed width for the div */
-    height: 90%; 
+    height: 95px; 
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #000000;
     margin: 2px 5px;
     border-radius: 35px;
     padding: 1px;
     /*box-shadow: [horizontal-offset] [vertical-offset] [blur-radius] [spread-radius (optional)] [color];*/
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
     transition: background-color 0.4s ease;
 }
 
-.shortcutContainer:hover {
+.headerShortcut {
+    border: 1px solid #000000;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.headerShortcut:hover {
     background-color: #188552;
 }
 
@@ -119,8 +123,8 @@ body{
 /*margin shorthand: 10px   10 all sides*/
 
 .shortcutContainer > img {
-    width: 80%;
-    height: 70%;
+    width: 75px;
+    height: 65px;
 }
 
 .ContentAdd {

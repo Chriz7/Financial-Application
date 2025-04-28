@@ -1,4 +1,6 @@
 import * as investments from './investments.js';
+import * as home from './home.js';
+
 
 
 
@@ -12,10 +14,18 @@ export const pageContentContainer = document.querySelector(".pageContentContaine
 
 
 //pointers to shourtcut buttons
+const homeShortcutBtn = document.getElementById("homeShortcut");
 const budgetShortcutBtn = document.getElementById("budgetShortcut");
 const debtShortcutBtn = document.getElementById("debtShortcut");
 const educationShortcutBtn = document.getElementById("educationShortcut");
 const investShortcutBtn = document.getElementById("investShortcut");
+
+
+// Function to clear the intro and page content Container in preparation for HTML injection
+export function clearContainers() {
+    introContainer.innerHTML = ``;
+    pageContentContainer.innerHTML = ``;
+}
 
 
 // Function to clear and update page title
@@ -34,9 +44,11 @@ export function formatIntoCurrency(value) {
     }).format(value);
 }
 
-//this code will execute when the investment shortcut button is clicked
+//this code will execute when the shortcuts buttons are clicked
 investments.setupInvestmentShortcutListener(investShortcutBtn, mainContentInitiation);
+home.setupHomeShortcutListener(homeShortcutBtn);
 
+homeShortcutBtn.click();
 
 // Event listener for Budget button (renders budget content)
 budgetShortcutBtn.addEventListener("click", function () {
