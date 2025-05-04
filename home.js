@@ -7,7 +7,7 @@ export function setupHomeShortcutListener (homeShortcutBtn) {
         general.clearContainers();
 
         general.introContainer.insertAdjacentHTML('beforeend', 
-                    `<p>Welcome to Financial Compass — let's navigate the path to your financial dreams!</p>
+                    `<p class = pageIntroTitle>Welcome to Financial Compass - let's navigate the path to your financial dreams!</p>
                     `
                 );
         
@@ -19,7 +19,7 @@ export function setupHomeShortcutListener (homeShortcutBtn) {
                                     <img src="Images/budgetIcon.png" alt="Budget Shortcut Icon" class="shortcutIcon">
                                 </div>
 
-                                <p class = pageIntroTitle> Budgeting (Under Contruction)</p>
+                                <p class = pageIntroTitle> Budgeting</p>
                             </div>
                             
                             <p>

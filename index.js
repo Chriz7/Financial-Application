@@ -1,13 +1,11 @@
 import * as investments from './investments.js';
 import * as home from './home.js';
-
-
+import * as budget from './budget.js';
 
 
 // Get references to buttons, dynamic content containers, and the graph container
 
-//pointer to main content box
-const projectionsContainer = document.getElementById("projectionsContainer");
+//pointer to main content containers
 export const introContainer = document.querySelector(".introContainer");
 export const pageContentContainer = document.querySelector(".pageContentContainer");
 
@@ -27,13 +25,11 @@ export function clearContainers() {
     pageContentContainer.innerHTML = ``;
 }
 
-
 // Function to clear and update page title
-function mainContentInitiation(title) {
+export function mainContentInitiation(title) {
     introContainer.innerHTML = 
-        `<p id="MainContentTitle">${title}</p> `;
+        `<p class="MainContentTitle">${title}</p> `;
 }
-
 
 export function formatIntoCurrency(value) {
     return new Intl.NumberFormat('en-US', {
@@ -45,37 +41,9 @@ export function formatIntoCurrency(value) {
 }
 
 //this code will execute when the shortcuts buttons are clicked
-investments.setupInvestmentShortcutListener(investShortcutBtn, mainContentInitiation);
+investments.setupInvestmentShortcutListener(investShortcutBtn);
 home.setupHomeShortcutListener(homeShortcutBtn);
+budget.setupBudgetShortcutListener(budgetShortcutBtn);
 
 homeShortcutBtn.click();
 
-// Event listener for Budget button (renders budget content)
-budgetShortcutBtn.addEventListener("click", function () {
-    mainContentInitiation(`
-        <p>Budgeting Tools Coming Soon...</p>
-    `, 'Budgeting');
-
-    projectionsContainer.innerHTML = ``;
-    
-});
-
-// Event listener for Pay Debt button (renders debt content)
-debtShortcutBtn.addEventListener("click", function () {
-    mainContentInitiation(`
-        <p>Debt Management Strategies Coming Soon...</p>
-    `, 'Tackling Debt');
-
-    projectionsContainer.innerHTML = ``;
-    
-});
-
-// Event listener for Learn button (renders education content)
-educationShortcutBtn.addEventListener("click", function () {
-    mainContentInitiation(`
-        <p>Financial Education Resources Coming Soon...</p>
-    `, 'Financial Education');
-
-    projectionsContainer.innerHTML = ``;
-    
-});

@@ -14,6 +14,8 @@
     "vite": "^6.2.2"
   },
   "dependencies": {
-    "ag-grid-community": "^33.1.1"
+    "@handsontable/react-wrapper": "^15.2.0",
+    "ag-grid-community": "^33.1.1",
+    "handsontable": "^15.3.0"
   }
 }

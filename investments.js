@@ -41,7 +41,7 @@ export function addInvestmentAccount() {
     // Set the innerHTML for the new account div
     accountDiv.innerHTML = `
         <div class="removeButtonContainer">
-            <button class="removeInvestmentAccount">-</button>
+            <button class="removeAccount">-</button>
         </div>
         <div class="investmentInputsBox" id = "accountID ${numberOfInvestmentAccounts}">
             <label class="topRowBox">Name 
@@ -521,7 +521,7 @@ export function setupInvestmentShortcutListener (investShortcutBtn, mainContentI
         general.clearContainers();
 
         //adding the title for the investment section
-        mainContentInitiation('Investing and Retirement');
+        general.mainContentInitiation('Investing and Retirement');
 
         general.introContainer.insertAdjacentHTML('beforeend', 
             `<div class="icon-container">
@@ -674,7 +674,7 @@ export function setupInvestmentShortcutListener (investShortcutBtn, mainContentI
         
 
         //triggers if the button we clicked has the class removeButton
-        if (event.target.classList.contains("removeInvestmentAccount")) {
+        if (event.target.classList.contains("removeAccount")) {
             // Find the parent div of the button (the investment account div)
             const investmentAccountDiv = event.target.closest('.investmentBox');
             

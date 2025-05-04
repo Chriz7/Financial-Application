@@ -23,7 +23,6 @@ body{
     flex-direction: column;
     justify-content: center;
     width: 98vw;
-    margin: 1px;
 }
 
 .pageContentContainer{
@@ -63,6 +62,18 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 8px 0px;
+
+}
+
+.introContainer > p {
+    margin: 0px 5px;
+}
+
+.MainContentTitle {
+    color: #EFE9D5;
+    font-size: 1.2em;
+    margin-right: 5px;
 }
 
 
@@ -72,11 +83,7 @@ body{
     height: 650px;
 }
 
-#MainContentTitle {
-    color: #EFE9D5;
-    font-size: 1.2em;
-    margin-right: 5px;
-}
+
 
 .Shortcuts {
     display: flex;
@@ -107,14 +114,14 @@ body{
 
 .headerShortcut {
     border: 1px solid #000000;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.479);
 }
 
 .headerShortcut:hover {
     background-color: #188552;
 }
 
-#budgetShortcut, #debtShortcut, #educationShortcut {
+#debtShortcut, #educationShortcut {
     background-color: #b4b4b4ad;
 }
 
@@ -137,8 +144,8 @@ input, button {
 }
 
 .icon-container {
-    width: 50px;  /* making height and width the same so when when do border-radius 50% we get a circle */
-    height: 50px; 
+    width: 40px;  /* making height and width the same so when when do border-radius 50% we get a circle */
+    height: 40px; 
     background-color: #EFE9D5;
     border-radius: 50%; /* This makes the icon a circle */
     display: flex;
@@ -174,6 +181,10 @@ input, button {
 .icon-container:hover .hover-box {
     opacity: 1;
     visibility: visible;
+}
+
+table tr {
+    scroll-snap-align: start;
 }
 
 /* Styling for screens smaller than 700px (common breakpoint for phones) */
