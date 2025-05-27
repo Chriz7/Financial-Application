@@ -8,7 +8,6 @@
 }
 
 .pageContentContainer {
-
     flex-direction: row;
     flex-wrap: wrap;
 }
@@ -25,6 +24,9 @@
     width: 40vw;
     height: 32vh;
     text-align: center;
+    cursor: pointer;       /* Changes mouse to hand */
+    background-color: #274f75;
+
 }
 
 .pageIntroTitle {

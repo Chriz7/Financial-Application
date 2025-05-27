@@ -39,7 +39,7 @@ export function setupBudgetShortcutListener (budgetShortcutBtn) {
 
                             <div class = 'budgetHeaderContainer'>
                                 <p class = budgetTopicTitle> Income </p>
-                                <button class = 'controlButton' id="addIncomeAccount">Add Income</button>
+                                <button class = 'controlButton greenButton' id="addIncomeAccount">Add Income</button>
                                 <div class = 'budgetTotalContainer'>
                                     <p class = budgetTopicTitle> Total: $</p>
                                     <p id = budgetIncomeTotal>0</p>
@@ -79,7 +79,7 @@ export function setupBudgetShortcutListener (budgetShortcutBtn) {
                         <div class = 'budgetTopicContainer'>
                             <div class = 'budgetHeaderContainer'>
                                 <p class = budgetTopicTitle> Needs </p>
-                                <button class = 'controlButton' id="addNeedAccount">Add Account</button>
+                                <button class = 'controlButton greenButton' id="addNeedAccount">Add Account</button>
                                 <div class = 'budgetTotalContainer'>
                                     <p class = budgetTopicTitle> Total: $</p>
                                     <p id = budgetNeedTotal>0</p>
@@ -132,7 +132,7 @@ export function setupBudgetShortcutListener (budgetShortcutBtn) {
                     <div class = 'budgetTopicContainer'>
                             <div class = 'budgetHeaderContainer'>
                                 <p class = budgetTopicTitle> Savings </p>
-                                <button class = 'controlButton' id="addSavingAccount">Add Savings</button>
+                                <button class = 'controlButton greenButton' id="addSavingAccount">Add Savings</button>
                                 <div class = 'budgetTotalContainer'>
                                     <p class = budgetTopicTitle> Total: $</p>
                                     <p id = budgetSavingTotal>0</p>
@@ -177,7 +177,7 @@ export function setupBudgetShortcutListener (budgetShortcutBtn) {
                         <div class = 'budgetTopicContainer'>
                             <div class = 'budgetHeaderContainer'>
                                 <p class = budgetTopicTitle> Wants </p>
-                                <button class = 'controlButton' id="addWantAccount">Add Account</button>
+                                <button class = 'controlButton greenButton' id="addWantAccount">Add Account</button>
                                 <div class = 'budgetTotalContainer'>
                                     <p class = budgetTopicTitle> Total: $</p>
                                     <p id = budgetWantTotal>0</p>

@@ -1,0 +1,129 @@
+.masterDebtContainer, .debtStrategiesContainer, .debtTopicContainer {
+    flex-direction: column;
+}
+
+.debtTopicContainer {
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    padding: 5px;
+    border: 1px solid #000000;
+    margin: 10px 0px;
+    background-color: #3b6891;
+}
+
+#debtAccountsContainer{
+    width: 60vw;
+}
+
+.debtQuoteContainer {
+    background-color: #EFE9D5;
+}
+
+#randomQuote {
+    font-family: cursive;
+}
+
+.debtStrategiesContainer {
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    padding: 0px 30px;
+}
+
+.debtStrategiesContainer, .debtControlsPanel {
+    margin: 5px 0px;
+}
+
+.debtStrategySelectionContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.debtControlsPanel {
+    flex-direction: row;
+    width: 70%;
+    justify-content: space-evenly;
+}
+
+.debtPayoffOverallInfo{
+    display: flex;
+    flex-direction: row;
+}
+
+h4, .debtSubSectionTitle, .debtStrategy {
+    margin: 10px 0px;
+}
+
+#debtBudgetPayoff {
+    width: 35%;
+    font-size: 1.4rem;
+}
+
+#debtBudgetInput {
+    width: 30%;
+    font-size: 1rem;
+    margin-left: 10px;
+}
+
+.debtTableContainer {
+    width: 70%;
+}
+
+.debtTable {
+    width: 100%;
+    border-collapse: collapse;
+    border:solid black 1px;
+    margin-bottom: 5px;
+}
+
+
+.debtTable th, .debtTable td {
+    padding: 5px 7px;
+    text-align: left;
+    border-left:solid black 1px;
+    border-top:solid black 1px;
+}
+
+.debtTable td:first-child, .debtTable th:first-child {
+    border-left: none;
+}
+
+.debtTable th {
+    background-color: #27445D;
+    color: white;
+    font-size: 1.3rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-top: none;
+}
+
+.debtTable td {
+    font-size: 1.3rem;
+}
+
+.debtTable tbody tr:nth-child(even) {
+    background-color: #98c4ff;
+}
+
+.debtTable tbody tr:nth-child(odd) {
+    background-color: #6dacff;
+}
+
+.debtTable tr:hover {
+    background-color: #bbbbbb;
+}
+
+#debtFreeDateContainer {
+    box-shadow: 0px 0px 10px 5px rgba(0, 255, 34, 0.829);
+}
+
+.debtGridContainer, .debtLineGraphContainer {
+    flex-direction: column;
+    width: 90%;
+    height: 400px;
+}
+#debtGrid, #debtLineGraph {
+    flex: 1;
+    width: 100%;
+}
+

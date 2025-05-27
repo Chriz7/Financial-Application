@@ -10,6 +10,11 @@ html {
     box-sizing: inherit;   /* ensuring all box sizes include padding and border */
 }
 
+.centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 body{
     font-size: 25px;
@@ -110,6 +115,7 @@ body{
     padding: 1px;
     /*box-shadow: [horizontal-offset] [vertical-offset] [blur-radius] [spread-radius (optional)] [color];*/
     transition: background-color 0.4s ease;
+    cursor: pointer;       /* Changes mouse to hand */
 }
 
 .headerShortcut {
@@ -121,7 +127,7 @@ body{
     background-color: #188552;
 }
 
-#debtShortcut, #educationShortcut {
+#educationShortcut {
     background-color: #b4b4b4ad;
 }
 
@@ -185,6 +191,42 @@ input, button {
 
 table tr {
     scroll-snap-align: start;
+}
+
+.controlButton, .controlInput {
+    font-size: .8em;
+    border: none;
+    border-radius: 5px; 
+    font-family: "Roboto", sans-serif; 
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer; 
+    transition: background-color 0.2s ease;
+    margin: 10px 10px;
+    height: 45px;
+}
+
+.controlButton {
+    padding: 10px;
+}
+
+.greenButton, .controlInput {
+    background-color: #209c62; 
+}
+
+.greenButton:hover {
+    background-color: #176e45;
+}
+
+.blueButton {
+    background-color: #3a94e7;
+}
+
+.blueButton:hover {
+    background-color: #236caf;
+}
+
+.controlInput {
+    padding: 0px 5px;
 }
 
 /* Styling for screens smaller than 700px (common breakpoint for phones) */

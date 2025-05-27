@@ -150,31 +150,6 @@
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.controlButton, .controlInput {
-    font-size: .8em;
-    background-color: #209c62; 
-    border: none;
-    border-radius: 5px; 
-    font-family: "Roboto", sans-serif; 
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-    cursor: pointer; 
-    transition: background-color 0.2s ease;
-    margin: 10px 10px;
-    height: 45px;
-}
-
-.controlButton {
-    padding: 10px;
-}
-
-.controlButton:hover {
-    background-color: #176e45;
-}
-
-.controlInput {
-    padding: 0px 5px;
-}
-
 
 .removeButtonContainer {
     width: 50px;

@@ -1,4 +1,7 @@
 import * as general from './index.js';
+import * as investments from './investments.js';
+import * as budget from './budget.js';
+import * as debt from './debt.js';
 
 export function setupHomeShortcutListener (homeShortcutBtn) {
 
@@ -12,9 +15,8 @@ export function setupHomeShortcutListener (homeShortcutBtn) {
                 );
         
         general.pageContentContainer.insertAdjacentHTML('beforeend', 
-            `<div class = 'pageIntroContainer'>
-                            <div class = 'pageTitleContainer'>
-
+            `           <div id='homeBudgetIntroContainer' class = 'pageIntroContainer'>
+                            <div  class = 'pageTitleContainer'>
                                 <div class="shortcutContainer">
                                     <img src="Images/budgetIcon.png" alt="Budget Shortcut Icon" class="shortcutIcon">
                                 </div>
@@ -27,14 +29,14 @@ export function setupHomeShortcutListener (homeShortcutBtn) {
                             </p>
                         </div>
 
-                        <div class = 'pageIntroContainer'>
+                        <div id='homeDebtIntroContainer' class = 'pageIntroContainer'>
                             <div class = 'pageTitleContainer'>
 
                                 <div class="shortcutContainer">
                                     <img src="Images/debtFreeIcon.png" alt="Debt Shortcut Icon" class="shortcutIcon">
                                 </div>
 
-                                <p class = pageIntroTitle> Tackling Debt (Under Contruction)</p>
+                                <p class = pageIntroTitle> Tackling Debt</p>
                             </div>
                             
                             <p>
@@ -42,7 +44,7 @@ export function setupHomeShortcutListener (homeShortcutBtn) {
                             </p>
                         </div>
                         
-                        <div class = 'pageIntroContainer'>
+                        <div id='homeInvestmentIntroContainer' class = 'pageIntroContainer'>
                             <div class = 'pageTitleContainer'>
 
                                 <div class="shortcutContainer">
@@ -57,7 +59,7 @@ export function setupHomeShortcutListener (homeShortcutBtn) {
                             </p>
                         </div>
                         
-                        <div class = 'pageIntroContainer'>
+                        <div id='homeIntroContainer' class = 'pageIntroContainer'>
                             <div class = 'pageTitleContainer'>
 
                                 <div class="shortcutContainer">
@@ -81,6 +83,28 @@ export function setupHomeShortcutListener (homeShortcutBtn) {
             {
             homeContentText.style.color = '#EFE9D5';
           });
+
+        //pointers to shortcut buttons
+        
+
+        //creating pointers to the button and the intro container. if either is clicked the user will
+        //be routed to that page
+        const budgetShortcutBtn = document.getElementById("budgetShortcut");
+        const homeBudgetIntroContainer = document.getElementById("homeBudgetIntroContainer");
+        budget.setupBudgetShortcutListener(budgetShortcutBtn);
+        budget.setupBudgetShortcutListener(homeBudgetIntroContainer);
+
+
+        const debtShortcutBtn = document.getElementById("debtShortcut");
+        const homeDebtIntroContainer = document.getElementById("homeDebtIntroContainer");
+        debt.setupDebtShortcutListener(debtShortcutBtn);
+        debt.setupDebtShortcutListener(homeDebtIntroContainer);
+
+
+        const investShortcutBtn = document.getElementById("investShortcut");
+        const homeInvestmentIntroContainer = document.getElementById("homeInvestmentIntroContainer");
+        investments.setupInvestmentShortcutListener(investShortcutBtn);
+        investments.setupInvestmentShortcutListener(homeInvestmentIntroContainer);
 
     });
 

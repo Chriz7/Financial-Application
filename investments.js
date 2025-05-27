@@ -5,14 +5,6 @@ const { createGrid, AllCommunityModule, ModuleRegistry, themeQuartz } = window.a
 // Register all Community features
 ModuleRegistry.registerModules([AllCommunityModule]);
 
-//pointers to specific containers to inject HTML into
-let investmentAccountsContainer;
-let investmentChartContainer;
-let retirementTableContainer;
-let retirementChartContainer;
-let investmentAccountGuidanceContainer;
-let endingBalanceYearTotal;
-
 //creating the theme for our output table
 const myTheme = themeQuartz.withParams({
     backgroundColor: "#1f2836",
@@ -28,6 +20,14 @@ const myTheme = themeQuartz.withParams({
     foregroundColor: "#FFF",
     headerFontSize: 18
     });
+
+//pointers to specific containers to inject HTML into
+let investmentAccountsContainer;
+let investmentChartContainer;
+let retirementTableContainer;
+let retirementChartContainer;
+let investmentAccountGuidanceContainer;
+let endingBalanceYearTotal;
 
 //adds an investment account to the mainContentBox. This is so the user can manage multiple investment accounts
 export function addInvestmentAccount() {
@@ -106,7 +106,7 @@ export function calculateInvestmentTable() {
 
     investmentChartContainer.innerHTML = `<canvas id="investmentChart"></canvas>`;
 
-    let gridApi;
+    let investmentGridApi;
 
     //creating our columns for the table
     const columnDefs = [ 
@@ -130,7 +130,7 @@ export function calculateInvestmentTable() {
     let overallTotalContributions = 0;
     let overallTotalInterestGained = 0;
 
-    // Data for Chart.js
+    // Data for the investment line graph
     const years = [];
     const contributionData = [];
     const interestData = [];
@@ -140,7 +140,8 @@ export function calculateInvestmentTable() {
     //iterating through each year for the projection
     for (let year = 1; year <= yearsToProject; year++) {
 
-        //creating our row shell. this will refresh at every iteration
+        //creating our row shell. this will refresh at every iteration. 
+        //we have this twice because we do it for every account and year
         let templateRow = {year: year.toString(), 
             account: 'test' , startingBalance: 0, 
             contributions: 0, interestGained: 0, 
@@ -190,7 +191,7 @@ export function calculateInvestmentTable() {
             endingBalanceYearTotal += endingBalanceCalculation;
         }
 
-        //do a total row addition here
+        //total row addition here
         templateRow = {year: "Total", 
             contribution: general.formatIntoCurrency(contributionYearTotal), 
             interestGained: general.formatIntoCurrency(interestGainedYearTotal), 
@@ -228,14 +229,14 @@ export function calculateInvestmentTable() {
 
     //adding the content to our table dictionary
     const gridOptions = {
-        theme: myTheme,
+        theme: general.myTheme,
         columnDefs,
         rowData,
         defaultColDef
         };
         
     //creating the table
-    gridApi = createGrid(document.querySelector("#investmentGrid"), gridOptions);
+    investmentGridApi = createGrid(document.querySelector("#investmentGrid"), gridOptions);
 
     const ctx = document.getElementById('investmentChart').getContext('2d');
     new Chart(ctx, {
@@ -336,7 +337,7 @@ export function calculateRetirement() {
 
     retirementChartContainer.innerHTML = `<canvas id="retirementChart"></canvas>`;
 
-    let gridApiRetirement;
+    let investmentGridApiRetirement;
 
     //creating our columns for the table
     const columnDefs = [ 
@@ -372,9 +373,6 @@ export function calculateRetirement() {
 
         //creating our row shell. this will refresh at every iteration
         let templateRow = {year: year.toString(), startingBalance:0, income: 0 , interestGained: 0, endingBalance: 0};
-
-        console.log('expenses:');
-        console.log(expenses);
 
         //adding the starting balance
         templateRow['startingBalance'] = general.formatIntoCurrency(retirementBalance);
@@ -426,7 +424,7 @@ export function calculateRetirement() {
         };
         
     //creating the table
-    gridApiRetirement = createGrid(document.querySelector("#retirementGrid"), gridOptions);
+    investmentGridApiRetirement = createGrid(document.querySelector("#retirementGrid"), gridOptions);
 
     const ctx = document.getElementById('retirementChart').getContext('2d');
     new Chart(ctx, {
@@ -515,7 +513,7 @@ export function calculateRetirement() {
 }
 
 // Event listener for Invest shortcut button (renders the investment content)
-export function setupInvestmentShortcutListener (investShortcutBtn, mainContentInitiation) { 
+export function setupInvestmentShortcutListener (investShortcutBtn) { 
     investShortcutBtn.addEventListener("click", function () {
 
         general.clearContainers();
@@ -546,7 +544,7 @@ export function setupInvestmentShortcutListener (investShortcutBtn, mainContentI
                 <div class = 'controlPanelContainer'>
                     <p class = 'controlPanelHeader'>Investments</p>
                     <div class = projectionControls>
-                        <button class = 'controlButton' id="addInvestmentAccount">Add Account</button> 
+                        <button class = 'controlButton greenButton' id="addInvestmentAccount">Add Account</button> 
                         <label class = 'controlInput'> 
                             Years to invest
                             <input type="number" value="20" id="yearsToInvest">
@@ -576,7 +574,7 @@ export function setupInvestmentShortcutListener (investShortcutBtn, mainContentI
                     </div>
                 </div>
 
-                <button class = 'controlButton' id="calculateInvestments">Calculate</button>
+                <button class = 'controlButton greenButton' id="calculateInvestments">Calculate</button>
             </div> `);
 
             //redering our investment section
