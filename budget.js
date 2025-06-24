@@ -1,6 +1,6 @@
 import * as general from './index.js';
 
-
+let budgetButtonsLoaded = false;
 
 export function setupBudgetShortcutListener (budgetShortcutBtn) {
 
@@ -18,7 +18,7 @@ export function setupBudgetShortcutListener (budgetShortcutBtn) {
                         <div class="hover-box">
                             <p class="instructionsText">Instructions:</p> 
                             <ol class="instructionsText">
-                                <li>Enter your income. This is money coming in.</li><br>
+                                <li>Enter your income. </li><br>
                                 <li>Enter your savings. This is money you are setting aside for the future. Remember to pay yourself first!</li><br>
                                 <li>Enter your needs. These are the things you NEED to live every month.</li><br>
                                 <li>Enter your wants. These are extra things in life you would like to have.</li><br>
@@ -292,22 +292,6 @@ export function setupBudgetShortcutListener (budgetShortcutBtn) {
         //here we can set up custom event listners inside our Page Content Container
         general.pageContentContainer.addEventListener("click", function (event) {
 
-            if (event.target.id === "addIncomeAccount") {
-                addRowToTable("budgetIncomeTable");
-                }
-
-            else if (event.target.id === "addNeedAccount") {
-                addRowToTable("budgetNeedTable");
-                }
-
-            else if (event.target.id === "addSavingAccount") {
-                addRowToTable("budgetSavingTable");
-                }
-
-            else if (event.target.id === "addWantAccount") {
-                addRowToTable("budgetWantTable");
-                }
-
             //triggers if the button we clicked has the class removeButton
             if (event.target.classList.contains("removeAccount")) {
 
@@ -323,6 +307,32 @@ export function setupBudgetShortcutListener (budgetShortcutBtn) {
             }
 
         });
+
+        //preventing duplicate event listeners being loaded
+        if (!budgetButtonsLoaded)
+        {
+        general.pageContentContainer.addEventListener("click", function (event) {
+
+            if (event.target.id === "addIncomeAccount") {
+                addRowToTable("budgetIncomeTable");
+                }
+
+            else if (event.target.id === "addNeedAccount") {
+                addRowToTable("budgetNeedTable");
+                }
+
+            else if (event.target.id === "addSavingAccount") {
+                addRowToTable("budgetSavingTable");
+                }
+
+            else if (event.target.id === "addWantAccount") {
+                addRowToTable("budgetWantTable");
+                }
+            
+            budgetButtonsLoaded = true;
+
+        });
+        }
 
         // Add this event listener to your table
         general.pageContentContainer.addEventListener('input', function(event) {

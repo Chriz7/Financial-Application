@@ -16,6 +16,14 @@ html {
     justify-content: center;
 }
 
+.brightTitle {
+    color: #EFE9D5;
+}
+
+.darkTitle {
+    color: rgb(0, 0, 53);
+}
+
 body{
     font-size: 25px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -125,10 +133,6 @@ body{
 
 .headerShortcut:hover {
     background-color: #188552;
-}
-
-#educationShortcut {
-    background-color: #b4b4b4ad;
 }
 
 /*margin shorthand: top right bottom left*/

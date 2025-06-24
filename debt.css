@@ -24,6 +24,7 @@
 }
 
 .debtStrategiesContainer {
+    background-color: #EFE9D5;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
     border-radius: 20px;
     padding: 0px 30px;
@@ -119,7 +120,7 @@ h4, .debtSubSectionTitle, .debtStrategy {
 
 .debtGridContainer, .debtLineGraphContainer {
     flex-direction: column;
-    width: 90%;
+    width: 60vw;
     height: 400px;
 }
 #debtGrid, #debtLineGraph {

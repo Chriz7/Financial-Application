@@ -1,15 +1,14 @@
 /* home css */
 
-.pageContentContainer, .pageTitleContainer
+.homeIntrosContainer{
+    flex-wrap: wrap;
+}
+
+.pageTitleContainer, .homeIntrosContainer
 {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.pageContentContainer {
-    flex-direction: row;
-    flex-wrap: wrap;
 }
 
 .pageTitleContainer {

@@ -23,6 +23,7 @@ const myTheme = themeQuartz.withParams({
 
 let currentPayoffStrategy;
 let payoffBudget;
+let debtButtonsLoaded = false;
 
 // Array of 10 common colors (excluding red)
 const colorPalette = [
@@ -38,215 +39,232 @@ const colorPalette = [
     "#7f8c8d"  // Gray
 ];
 
+function handleDebtSetupClick() {
+    general.clearContainers();
 
-export function setupDebtShortcutListener (debtShortcutBtn) {
+    //adding the title for the debt sectionF
+    general.mainContentInitiation('Tackling Debt');
 
-    debtShortcutBtn.addEventListener ('click', function(){
+    general.introContainer.insertAdjacentHTML('beforeend', 
+        `<div class="icon-container">
+                <p class="icon"> i </p> 
+                    <div class="hover-box">
+                        <p class="instructionsText">Instructions:</p> 
+                        <ol class="instructionsText">
+                            <li>Choose your payoff strategy. (Snowball/Avalanche)</li><br>
+                            <li>Enter your payoff budget amount. This is the money you have to cover minimum payments and extra funds.</li><br>
+                            <li>Enter your debt accounts using the green "Add Account" button.</li><br>
+                            <li>Click calculate to watch the stress fade away.</li><br>
+                            <li>Ensure to check different strategies to find what is best for you.</li><br>
+                        </ol>
+                    </div>
+            </div>`
+    );
 
-        general.clearContainers();
+    //generating a random number
+    let randomNum = Math.floor(Math.random() * 12) + 1;
 
-        //adding the title for the debt sectionF
-        general.mainContentInitiation('Tackling Debt');
+    //quotes to pick from
+    const quotes = {
+        1: 'Every dollar you pay toward your debt is a vote for your freedom.',
+        2: 'Debt is just a chapter, not your whole story. Take control, turn the page, and write your future.',
+        3: 'The moment you choose to face your debt is the moment you choose peace and freedom over stress and oppression.',
+        4: 'Debt may whisper defeat, but your discipline shouts victory.',
+        5: 'Freedom does not start when you are out of debt. It begins the moment you decide to fight for it.',
+        6: 'The weight of debt feels lighter with every intentional step toward freedom.',
+        7: 'Your debt does not define you. Your determination does.',
+        8: 'Paying off debt is not punishment, it is power reclaimed.',
+        9: 'Debt is temporary. The freedom you are building will last a lifetime.',
+        10: 'You are not just paying off debt. You are proving you are stronger than your setbacks.',
+        11: 'Behind every payment is a person choosing progress over paralysis.',
+        12: 'Debt-free is not just a dream. It is a destination you are already heading toward.'
+    };
 
-        general.introContainer.insertAdjacentHTML('beforeend', 
-            `<div class="icon-container">
-                    <p class="icon"> i </p> 
-                        <div class="hover-box">
-                            <p class="instructionsText">Instructions:</p> 
-                            <ol class="instructionsText">
-                                <li>Enter your debt accounts using the green "Add Account" button.</li><br>
-                            </ol>
-                        </div>
-                </div>`
-        );
+    //quote to input
+    let quoteToUse = quotes[randomNum];
 
-        //generating a random number
-        let randomNum = Math.floor(Math.random() * 12) + 1;
-
-        //quotes to pick from
-        const quotes = {
-            1: 'Every dollar you pay toward your debt is a vote for your freedom.',
-            2: 'Debt is just a chapter, not your whole story. Take control, turn the page, and write your future.',
-            3: 'The moment you choose to face your debt is the moment you choose peace and freedom over stress and oppression.',
-            4: 'Debt may whisper defeat, but your discipline shouts victory.',
-            5: 'Freedom does not start when you are out of debt. It begins the moment you decide to fight for it.',
-            6: 'The weight of debt feels lighter with every intentional step toward freedom.',
-            7: 'Your debt does not define you. Your determination does.',
-            8: 'Paying off debt is not punishment, it is power reclaimed.',
-            9: 'Debt is temporary. The freedom you are building will last a lifetime.',
-            10: 'You are not just paying off debt. You are proving you are stronger than your setbacks.',
-            11: 'Behind every payment is a person choosing progress over paralysis.',
-            12: 'Debt-free is not just a dream. It is a destination you are already heading toward.'
-        };
-
-        //quote to input
-        let quoteToUse = quotes[randomNum];
-
-        //setting up the main content layout
-        general.pageContentContainer.insertAdjacentHTML('beforeend', 
-            `
-            <div class = 'masterDebtContainer centered'>
-                <div class='debtQuoteContainer debtTopicContainer centered'>
-                    <p id = 'randomQuote'></p>
-                </div>
-                <div id = 'debtAccountsContainer' class='debtTopicContainer centered'>
-                    
-                </div>
-                <div class='debtTopicContainer debtGridContainer centered'>
-                    <div id = 'debtGrid'> </div>
-                </div>
-                <div class='debtTopicContainer centered debtLineGraphContainer'>
-                    <canvas id="debtLineGraph"></canvas>
-                </div>
+    //setting up the main content layout
+    general.pageContentContainer.insertAdjacentHTML('beforeend', 
+        `
+        <div class = 'masterDebtContainer centered'>
+            <div class='debtQuoteContainer debtTopicContainer centered'>
+                <p id = 'randomQuote'></p>
             </div>
-            `);
-
-        //creating pointer to the quote box 
-        const quoteText = document.getElementById('randomQuote');
-
-        //updating the quote
-        quoteText.innerHTML = quoteToUse;
-
-        //pointer to the container with the debt accounts and table
-        const debtAccountsContainer = document.getElementById('debtAccountsContainer');
-
-        //inserting the debt HTML
-        debtAccountsContainer.innerHTML = 
-            `
-                <div class = 'debtStrategiesContainer centered'>
-                <p class = 'debtSubSectionTitle'>Strategy</p>
-                <div class="strategySelections">
-                    <button class = 'controlButton blueButton' id="selectedSnowball">Snowball</button>
-                    <button class = 'controlButton blueButton' id="selectedAvalanche">Avalanche</button>
-                </div>
-            </div>
-
-            <div class = 'debtControlsPanel centered'>
-                <label id= 'debtBudgetPayoff' class="controlInput">Payoff Budget
-                    <input id="debtBudgetInput" value="750">
-                </label>
-                <button class = 'controlButton greenButton' id="addDebtAccount">Add Account</button>
-                <button class = 'controlButton greenButton' id="debtCalculation">Calculate</button> 
-            </div>
-
-            <div class = 'debtTableContainer centered'>
-                <table class = 'debtTable'>
-                                <colgroup>
-                                    <col style="width: 10%;">
-                                    <col style="width: 30%;">
-                                    <col style="width: 20%;">
-                                    <col style="width: 25%;">
-                                    <col style="width: 15%;">
-                                </colgroup>
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Name</th>
-                                        <th>Balance</th>
-                                        <th>Minimum Payment</th>
-                                        <th>Interest Rate</th>                                        
-                                    </tr>
-                                </thead>
-                                    <tbody id='debtManagementTable'>
-                                        <tr>
-                                            <td>
-                                                <div class="removeButtonContainer">
-                                                    <button class="removeAccount">-</button>
-                                                </div>
-                                            </td>
-                                            <td contenteditable="true">Credit Card</td>
-                                            <td contenteditable="true">7000</td>
-                                            <td contenteditable="true">350</td>
-                                            <td contenteditable="true">23</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="removeButtonContainer">
-                                                    <button class="removeAccount">-</button>
-                                                </div>
-                                            </td>
-                                            <td contenteditable="true">Personal Loan</td>
-                                            <td contenteditable="true">5000</td>
-                                            <td contenteditable="true">200</td>
-                                            <td contenteditable="true">5</td>
-                                        </tr>
-                                    </tbody>                                    
-                            </table> 
+            <div id = 'debtAccountsContainer' class='debtTopicContainer centered'>
                 
             </div>
-
-            <div class = 'projectionHeaders'>
-                <div class = 'projectionHeader' id='debtFreeDateContainer'>
-                    <p> Debt free date </p>
-                    <p id='debtFreeDate'></p>
-                </div> 
-                <div class = 'projectionHeader'>
-                    <p> Months from today </p>
-                    <p id='debtMonthsFromToday'></p>
-                </div> 
-                <div class = 'projectionHeader'>
-                    <p> Total Interest </p>
-                    <p id='debtTotalInterestPaid'></p>
-                </div> 
-            
+            <div class='debtTopicContainer debtGridContainer centered'>
+                <div id = 'debtGrid'> </div>
             </div>
-            `;
-        
-        //creating pointers to the debt strategy buttons
-        const snowballBtn = document.getElementById("selectedSnowball");
-        const avalancheBtn = document.getElementById("selectedAvalanche");
+            <div class='debtTopicContainer centered debtLineGraphContainer'>
+                <canvas id="debtLineGraph"></canvas>
+            </div>
+        </div>
+        `);
 
-        
+    //creating pointer to the quote box 
+    const quoteText = document.getElementById('randomQuote');
 
-        //setting up a general lister function
-        //here we can set up custom event listners inside our Page Content Container
+    //updating the quote
+    quoteText.innerHTML = quoteToUse;
+
+    //pointer to the container with the debt accounts and table
+    const debtAccountsContainer = document.getElementById('debtAccountsContainer');
+
+    //inserting the debt HTML
+    debtAccountsContainer.innerHTML = 
+        `
+        <div class = 'debtStrategiesContainer centered'>
+            <p class = 'debtSubSectionTitle darkTitle'>Strategy</p>
+            <div class="strategySelections">
+                <button class = 'controlButton blueButton' id="selectedSnowball">Snowball</button>
+                <button class = 'controlButton blueButton' id="selectedAvalanche">Avalanche</button>
+            </div>
+        </div>
+
+        <div class = 'debtControlsPanel centered'>
+            <label id= 'debtBudgetPayoff' class="controlInput">Payoff Budget
+                <input id="debtBudgetInput" value="750">
+            </label>
+            <button class = 'controlButton greenButton' id="addDebtAccount">Add Account</button>
+            <button class = 'controlButton greenButton' id="debtCalculation">Calculate</button> 
+        </div>
+
+        <div class = 'debtTableContainer centered'>
+            <table class = 'debtTable'>
+                            <colgroup>
+                                <col style="width: 10%;">
+                                <col style="width: 30%;">
+                                <col style="width: 20%;">
+                                <col style="width: 25%;">
+                                <col style="width: 15%;">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Name</th>
+                                    <th>Balance</th>
+                                    <th>Minimum Payment</th>
+                                    <th>Interest Rate</th>                                        
+                                </tr>
+                            </thead>
+                                <tbody id='debtManagementTable'>
+                                    <tr>
+                                        <td>
+                                            <div class="removeButtonContainer">
+                                                <button class="removeAccount">-</button>
+                                            </div>
+                                        </td>
+                                        <td contenteditable="true">Credit Card</td>
+                                        <td contenteditable="true">7000</td>
+                                        <td contenteditable="true">350</td>
+                                        <td contenteditable="true">23</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="removeButtonContainer">
+                                                <button class="removeAccount">-</button>
+                                            </div>
+                                        </td>
+                                        <td contenteditable="true">Personal Loan</td>
+                                        <td contenteditable="true">5000</td>
+                                        <td contenteditable="true">200</td>
+                                        <td contenteditable="true">5</td>
+                                    </tr>
+                                </tbody>                                    
+                        </table> 
+            
+        </div>
+
+        <div class = 'projectionHeaders'>
+            <div class = 'projectionHeader' id='debtFreeDateContainer'>
+                <p> Debt free date </p>
+                <p id='debtFreeDate'></p>
+            </div> 
+            <div class = 'projectionHeader'>
+                <p> Months from today </p>
+                <p id='debtMonthsFromToday'></p>
+            </div> 
+            <div class = 'projectionHeader'>
+                <p> Total Interest </p>
+                <p id='debtTotalInterestPaid'></p>
+            </div> 
+        
+        </div>
+        `;
+    
+    //creating pointers to the debt strategy buttons
+    const snowballBtn = document.getElementById("selectedSnowball");
+    const avalancheBtn = document.getElementById("selectedAvalanche");
+
+    
+
+    
+    //preventing duplicate event listeners being loaded
+    if (!debtButtonsLoaded)
+    {
         general.pageContentContainer.addEventListener("click", function (event) {
 
             //add a row to the debt table
             if (event.target.id === "addDebtAccount") {
                 addRowToTable("debtManagementTable");
                 }
+        })
+
+        debtButtonsLoaded = true;
+              
+    }
+
+    //setting up a general listner function
+    //here we can set up custom event listners inside our Page Content Container
+    general.pageContentContainer.addEventListener("click", function (event) {
+
+                
+        //clicking the snowball button
+        if (event.target.id === "selectedSnowball") {
             
-            //clicking the snowball button
-            if (event.target.id === "selectedSnowball") {
-                
-                //updating the debt payoff strategy
-                currentPayoffStrategy = 'Snowball';
+            //updating the debt payoff strategy
+            currentPayoffStrategy = 'Snowball';
 
-                //swapping the color so the user will see that the strategy the selected is pressed
-                snowballBtn.style.backgroundColor = "#236caf";
-                avalancheBtn.style.backgroundColor = "#3a94e7";
-                }
+            //swapping the color so the user will see that the strategy the selected is pressed
+            snowballBtn.style.backgroundColor = "#236caf";
+            avalancheBtn.style.backgroundColor = "#3a94e7";
+            }
 
-            //clicking the avalanche button
-            if (event.target.id === "selectedAvalanche") {
-                currentPayoffStrategy = 'Avalanche';
-                avalancheBtn.style.backgroundColor = "#236caf";
-                snowballBtn.style.backgroundColor = "#3a94e7";
-                }
+        //clicking the avalanche button
+        if (event.target.id === "selectedAvalanche") {
+            currentPayoffStrategy = 'Avalanche';
+            avalancheBtn.style.backgroundColor = "#236caf";
+            snowballBtn.style.backgroundColor = "#3a94e7";
+            }
 
-            //clicking the debt calculate button
-            if (event.target.id === "debtCalculation") {
-                calculateDebtPayoff();
-                }
+        //clicking the debt calculate button
+        if (event.target.id === "debtCalculation") {
+            calculateDebtPayoff();
+            }
 
 
-            //triggers if the button we clicked has the class removeButton
-            if (event.target.classList.contains("removeAccount")) {
+        //triggers if the button we clicked has the class removeButton
+        if (event.target.classList.contains("removeAccount")) {
 
-                // Finding the table row when the button resides
-                const tableRow = event.target.closest('tr');
-                
-                //remove the row
-                tableRow.remove();
+            // Finding the table row when the button resides
+            const tableRow = event.target.closest('tr');
+            
+            //remove the row
+            tableRow.remove();
 
-                }
-            });
+            }
+        });
 
-            //defaulting the selection to the snowball as its the most popular
-            snowballBtn.click();
-    });
+        //defaulting the selection to the snowball as its the most popular
+        snowballBtn.click();
 
+}
+
+
+export function setupDebtShortcutListener (debtShortcutBtn) {
+
+        debtShortcutBtn.addEventListener ('click', handleDebtSetupClick);
     
 }
 

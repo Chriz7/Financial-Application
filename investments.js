@@ -21,6 +21,9 @@ const myTheme = themeQuartz.withParams({
     headerFontSize: 18
     });
 
+//creating a switch so that we dont add duplicate listeners
+let investmentButtonsLoaded = false;
+
 //pointers to specific containers to inject HTML into
 let investmentAccountsContainer;
 let investmentChartContainer;
@@ -229,7 +232,7 @@ export function calculateInvestmentTable() {
 
     //adding the content to our table dictionary
     const gridOptions = {
-        theme: general.myTheme,
+        theme: myTheme,
         columnDefs,
         rowData,
         defaultColDef
@@ -542,7 +545,7 @@ export function setupInvestmentShortcutListener (investShortcutBtn) {
         `   <div class="controlPanel">
 
                 <div class = 'controlPanelContainer'>
-                    <p class = 'controlPanelHeader'>Investments</p>
+                    <p class = 'controlPanelHeader brightTitle'>Investments</p>
                     <div class = projectionControls>
                         <button class = 'controlButton greenButton' id="addInvestmentAccount">Add Account</button> 
                         <label class = 'controlInput'> 
@@ -553,7 +556,7 @@ export function setupInvestmentShortcutListener (investShortcutBtn) {
                 </div>
 
                 <div class = controlPanelContainer>
-                    <p class = 'controlPanelHeader'>Retirement</p>
+                    <p class = 'controlPanelHeader  brightTitle'>Retirement</p>
                     <div class = projectionControls>
                         <label class = 'controlInput'> 
                             Withdraw Rate (%)
@@ -682,9 +685,6 @@ export function setupInvestmentShortcutListener (investShortcutBtn) {
             numberOfInvestmentAccounts --;
         }
         
-        if (event.target.id === "addInvestmentAccount") {
-            addInvestmentAccount();
-        }
 
         if (event.target.id === "calculateInvestments") {
             updateInvestmentDictionary();
@@ -692,6 +692,19 @@ export function setupInvestmentShortcutListener (investShortcutBtn) {
             calculateRetirement();
         }
     });
+
+    //preventing duplicate event listeners being loaded
+    if (!investmentButtonsLoaded) 
+    {
+    general.pageContentContainer.addEventListener("click", function (event) {
+            
+        if (event.target.id === "addInvestmentAccount") {
+            addInvestmentAccount();
+        }
+        investmentButtonsLoaded = true;
+    });
+
+    }
 
 });
 

@@ -1,0 +1,78 @@
+.selectionTagsContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid #000000;
+    margin: 10px 0px;
+    background-color: #3b6891;
+}
+
+.tagLabel {
+    margin: 0vh 1vw;
+    transform: scale(1.5);
+    accent-color: #209c62; /* Optional: change checkbox color */
+    font-size: 1.4rem;
+    background-color: #EFE9D5;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    border: 1px solid #000000;
+    padding: 2px 15px;
+}
+
+.masterVideosContainer, .videoTagsContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.videoPictureContainer{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.videoTitle{
+    font-size: 1.3rem;
+    overflow-wrap: break-word;
+    text-align: center;
+    height: 5vh;
+}
+
+.individualVideoContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    margin: 20px;
+    padding: 10px;
+    background-color: #3b6891;
+    border: 1px solid #000000;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+}
+
+.videoImage {
+    width: 280px;
+    height: 220px;
+    border-radius: 20px;
+}
+
+.videoTagsContainer{
+    justify-content: center;
+}
+
+.videoTag {
+    background-color: #EFE9D5;
+    font-size: 1.2rem;
+    border: 1px solid #000000;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 5px;
+    margin: 0px .5vw;
+}
