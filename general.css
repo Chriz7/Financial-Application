@@ -64,7 +64,7 @@ body{
     display: flex;
     flex-direction: column;
     background-color: #27445D;
-    width: minmax(300px 99vw);
+    width: minmax(300px 98vw);
     margin-top: 3px;
     min-height: 88vh;
     border-radius: 10px;
@@ -102,13 +102,11 @@ body{
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-left: auto;
     height: 100%;
 }
 
 #pageTitle {
     font-weight: bold;
-    margin: 0;
     font-size: 1.2em;
 }
 
@@ -234,7 +232,7 @@ table tr {
 }
 
 /* Styling for screens smaller than 700px (common breakpoint for phones) */
-@media (max-width: 1200px) {
+@media (max-width: 700px) {
 
     
 
