@@ -311,27 +311,27 @@ export function setupBudgetShortcutListener (budgetShortcutBtn) {
         //preventing duplicate event listeners being loaded
         if (!budgetButtonsLoaded)
         {
-        general.pageContentContainer.addEventListener("click", function (event) {
+            general.pageContentContainer.addEventListener("click", function (event) {
 
-            if (event.target.id === "addIncomeAccount") {
-                addRowToTable("budgetIncomeTable");
-                }
+                if (event.target.id === "addIncomeAccount") {
+                    addRowToTable("budgetIncomeTable");
+                    }
 
-            else if (event.target.id === "addNeedAccount") {
-                addRowToTable("budgetNeedTable");
-                }
+                else if (event.target.id === "addNeedAccount") {
+                    addRowToTable("budgetNeedTable");
+                    }
 
-            else if (event.target.id === "addSavingAccount") {
-                addRowToTable("budgetSavingTable");
-                }
+                else if (event.target.id === "addSavingAccount") {
+                    addRowToTable("budgetSavingTable");
+                    }
 
-            else if (event.target.id === "addWantAccount") {
-                addRowToTable("budgetWantTable");
-                }
-            
-            budgetButtonsLoaded = true;
+                else if (event.target.id === "addWantAccount") {
+                    addRowToTable("budgetWantTable");
+                    }
+                
+                budgetButtonsLoaded = true;
 
-        });
+            });
         }
 
         // Add this event listener to your table

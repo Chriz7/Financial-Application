@@ -24,6 +24,7 @@ const myTheme = themeQuartz.withParams({
 let currentPayoffStrategy;
 let payoffBudget;
 let debtButtonsLoaded = false;
+let debtVisualsLoaded = false;
 
 // Array of 10 common colors (excluding red)
 const colorPalette = [
@@ -92,12 +93,6 @@ function handleDebtSetupClick() {
             </div>
             <div id = 'debtAccountsContainer' class='debtTopicContainer centered'>
                 
-            </div>
-            <div class='debtTopicContainer debtGridContainer centered'>
-                <div id = 'debtGrid'> </div>
-            </div>
-            <div class='debtTopicContainer centered debtLineGraphContainer'>
-                <canvas id="debtLineGraph"></canvas>
             </div>
         </div>
         `);
@@ -197,9 +192,6 @@ function handleDebtSetupClick() {
     const snowballBtn = document.getElementById("selectedSnowball");
     const avalancheBtn = document.getElementById("selectedAvalanche");
 
-    
-
-    
     //preventing duplicate event listeners being loaded
     if (!debtButtonsLoaded)
     {
@@ -289,6 +281,49 @@ function addRowToTable (tableID) {
 }
 
 function calculateDebtPayoff () {
+
+    const masterDebtContainer = document.querySelector('.masterDebtContainer');
+
+    if (!debtVisualsLoaded)
+    {
+        //adding the grid and table containers
+        masterDebtContainer.insertAdjacentHTML('beforeend',
+
+        `
+            <div class='debtTopicContainer debtGridContainer centered'>
+                <div id = 'debtGrid'> </div>
+            </div>
+            <div class='debtTopicContainer centered debtLineGraphContainer'>
+                <canvas id="debtLineGraph"></canvas>
+            </div>
+        `
+        );
+
+        debtVisualsLoaded = true;
+
+    } else {
+        //if our visuals are already added we clear them instead of adding another more containers
+        
+        const debtGridContainer = document.querySelector('.debtGridContainer');
+        const debtLineGraphContainer = document.querySelector('.debtLineGraphContainer');
+
+        
+        debtGridContainer.innerHTML = 
+            `
+                <div id = 'debtGrid'> </div>
+                
+            `;
+
+        debtLineGraphContainer.innerHTML = 
+            `
+                <canvas id="debtLineGraph"></canvas>
+            `;
+
+    }
+
+
+    
+
 
     // Creation of pointer
     const tableBody = document.getElementById('debtManagementTable');
