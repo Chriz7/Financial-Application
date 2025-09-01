@@ -78,7 +78,7 @@ function handleDebtSetupClick() {
         9: 'Debt is temporary. The freedom you are building will last a lifetime.',
         10: 'You are not just paying off debt. You are proving you are stronger than your setbacks.',
         11: 'Behind every payment is a person choosing progress over paralysis.',
-        12: 'Debt-free is not just a dream. It is a destination you are already heading toward.'
+        12: 'Debt-Free is not just a dream. It is a destination you are already heading toward.'
     };
 
     //quote to input
