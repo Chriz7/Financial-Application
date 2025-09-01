@@ -55,8 +55,8 @@ body{
     justify-content: space-between;
     height: 12vh;
     width: 100%;
-    padding-right: 10px;
-    padding-left: 10px;
+    padding-right: 1vw;
+    padding-left: 1vw;
     border-radius: 10px;
 }
 
@@ -65,7 +65,7 @@ body{
     flex-direction: column;
     background-color: #27445D;
     width: minmax(300px 98vw);
-    margin-top: 3px;
+    margin-top: .3vh;
     min-height: 88vh;
     border-radius: 10px;
 }
@@ -85,18 +85,9 @@ body{
 
 .MainContentTitle {
     color: #EFE9D5;
-    font-size: 1.2em;
+    font-size: 1.8rem;
     margin-right: 5px;
 }
-
-
-#myGrid {
-    margin-top: 10px;
-    width: 100%;
-    height: 650px;
-}
-
-
 
 .Shortcuts {
     display: flex;
@@ -107,16 +98,21 @@ body{
 
 #pageTitle {
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1.9rem;
+    margin-top: 2vh;
+}
+
+#versionSubheader {
+    margin-top: 1vh;
 }
 
 .shortcutContainer {
-    width: 90px; /* Fixed width for the div */
-    height: 95px; 
+    width: 4.8vw;
+    height: 10.1vh; 
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 2px 5px;
+    margin: 1vh .4vw;
     border-radius: 35px;
     padding: 1px;
     /*box-shadow: [horizontal-offset] [vertical-offset] [blur-radius] [spread-radius (optional)] [color];*/
@@ -138,8 +134,8 @@ body{
 /*margin shorthand: 10px   10 all sides*/
 
 .shortcutContainer > img {
-    width: 75px;
-    height: 65px;
+    width: 4vw;
+    height: 7vh;
 }
 
 .ContentAdd {
@@ -151,7 +147,8 @@ input, button {
     padding: 5px;
 }
 
-.icon-container {
+/* This is the need help hover bubble */
+.icon-container { 
     width: 40px;  /* making height and width the same so when when do border-radius 50% we get a circle */
     height: 40px; 
     background-color: #EFE9D5;
@@ -171,6 +168,7 @@ input, button {
 }
 
 .hover-box {
+    width: 100%;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -234,6 +232,26 @@ table tr {
 /* Styling for screens smaller than 700px (common breakpoint for phones) */
 @media (max-width: 700px) {
 
+    body {
+        font-size: 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #EFE9D5;
+        box-sizing: border-box;
+}
+
+    #pageTitle {
+    font-size: 1.2rem;
+}
+
+    .shortcutContainer {
+    width: 14vw; 
+    height: 8vh; 
+}
+
+    .shortcutContainer > img {
+    width: 10vw;
+    height: 6vh;
+}
     
 
 }
