@@ -322,9 +322,6 @@ function calculateDebtPayoff () {
     }
 
 
-    
-
-
     // Creation of pointer
     const tableBody = document.getElementById('debtManagementTable');
     const debtLineGraphContainer = document.querySelector('.debtLineGraphContainer');
@@ -720,8 +717,6 @@ function calculateDebtPayoff () {
             }
         }
     });
-
-
 
 }
 

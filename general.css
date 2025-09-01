@@ -244,13 +244,14 @@ table tr {
 }
 
     .shortcutContainer {
+    border-radius: 25px;
     width: 14vw; 
-    height: 8vh; 
+    height: 7.5vh; 
 }
 
     .shortcutContainer > img {
     width: 10vw;
-    height: 6vh;
+    height: 5.3vh;
 }
     
 

@@ -125,7 +125,7 @@ h4, .debtSubSectionTitle, .debtStrategy {
 .debtGridContainer, .debtLineGraphContainer {
     flex-direction: column;
     width: 60vw;
-    height: 400px;
+    height: 50vh;
 }
 #debtGrid, #debtLineGraph {
     flex: 1;
@@ -142,7 +142,7 @@ h4, .debtSubSectionTitle, .debtStrategy {
         text-align: center;
     }
 
-    #debtAccountsContainer {
+    #debtAccountsContainer, .debtTopicContainer {
         width: 90vw;
     }
 
