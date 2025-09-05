@@ -174,5 +174,9 @@ h4, .debtSubSectionTitle, .debtStrategy {
         width: 50vw;
     }
 
+    .debtGridContainer, .debtLineGraphContainer {
+        width: 98%;
+    }
+
 }
 

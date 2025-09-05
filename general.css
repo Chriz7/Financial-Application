@@ -24,7 +24,7 @@ html {
     color: rgb(0, 0, 53);
 }
 
-body{
+body {
     font-size: 25px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #EFE9D5;
@@ -35,7 +35,7 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 98vw;
+    width: clamp(98vw, 98vw, 100vw);
 }
 
 .pageContentContainer{
@@ -69,7 +69,6 @@ body{
     min-height: 88vh;
     border-radius: 10px;
 }
-
 
 .introContainer {
     display: flex;
@@ -107,8 +106,8 @@ body{
 }
 
 .shortcutContainer {
-    width: 4.8vw;
-    height: 10.1vh; 
+    width:clamp(50px, 4.5vw, 300px);
+    height: clamp(60px, 10.1vh, 95%) ; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -134,8 +133,8 @@ body{
 /*margin shorthand: 10px   10 all sides*/
 
 .shortcutContainer > img {
-    width: 4vw;
-    height: 7vh;
+    width: clamp(40px, 4vw, 290px);
+    height: clamp(50px, 7vh, 280px);
 }
 
 .ContentAdd {
@@ -231,28 +230,5 @@ table tr {
 
 /* Styling for screens smaller than 700px (common breakpoint for phones) */
 @media (max-width: 700px) {
-
-    body {
-        font-size: 20px;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #EFE9D5;
-        box-sizing: border-box;
-}
-
-    #pageTitle {
-    font-size: 1.2rem;
-}
-
-    .shortcutContainer {
-    border-radius: 25px;
-    width: 14vw; 
-    height: 7.5vh; 
-}
-
-    .shortcutContainer > img {
-    width: 10vw;
-    height: 5.3vh;
-}
-    
 
 }
